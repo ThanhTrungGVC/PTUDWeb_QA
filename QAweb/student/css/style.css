@@ -1,0 +1,40 @@
+
+.dangnhap{
+	margin:50px auto;
+	height: 420px;
+	width :1000px;
+	border-top: 2px solid #000000;
+	border-bottom:  2px solid #000000;
+}
+.navbar{
+	background:linear-gradient(to bottom,#A9BCF5,#CEF6F5) !important;
+}
+hr{
+	border: none;
+	height: 3px;
+	background:#BDBDBD;
+}
+label{
+	text-align: right;
+	margin-right: 80px;
+	float: left;
+	width: 200px
+
+}
+
+input{
+		margin-bottom: 10px;
+	}
+.imge1{
+ float: right;
+ height: 50px;
+ width: 150px;
+}	
+.avata{
+	float: left;
+}
+.thongtin
+{
+	float: right;
+	margin-right: 150px
+}

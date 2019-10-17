@@ -1,0 +1,69 @@
+.navbar{
+	background:linear-gradient(to bottom,#A9BCF5,#CEF6F5)!important;
+	width: 100%;
+}
+.anhdaidien{
+	float: left;
+	margin-right: 200px;
+}
+.anhcauhoi{
+	float: left;
+	margin-right: 220px
+}
+.thongtin{
+	margin-right: 200px;
+}
+
+label{
+	text-align: right;
+}
+
+@media (max-width: 2000px) {
+	.newbody{
+	margin:0px auto;
+	 height: 100% ; 
+	 width:70%; 
+	 background-color: #FAFAFA;
+}
+.newbody1{
+	margin-top: 20px;
+	margin-right: auto;
+	margin-left: auto; 
+	height: 18% ;
+	width: 90%; 
+	background-color: #F5A9BC;
+}
+.newbody2{
+	margin: 0px auto ;
+	height: 5%;
+	width: 90% ;
+	background-color: #A9E2F3
+}
+.newbody3{
+	margin: 10px auto ;
+	height: 20% ; 
+	width: 90% ;
+	background-color: #A9E2F3;
+}
+.newbody4{
+	margin: 10px auto ;
+	height: 20% ; 
+	width: 90% ;
+	background-color: #A9E2F3;
+}
+
+}
+img{
+	height: 120px ; 
+	margin-left: 20px ;
+	margin-top: 10px;
+}
+}
+
+
+
+
+
+
+
+
