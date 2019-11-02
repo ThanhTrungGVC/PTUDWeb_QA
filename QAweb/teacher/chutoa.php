@@ -24,7 +24,7 @@
 		</nav>
 		<div class="newbody1" style="border-radius: 5px;">
 			<div class="anhdaidien">
-				<img src="iconnhanvat.png">
+				<img src="/QAweb/img/iconnhanvat.png">
 			</div>
 			<div class="thongtin"  >
 
@@ -42,7 +42,7 @@
 		</div>
 		<div  class="newbody3" style="border-radius: 5px ;overflow: auto" >
 			<div class="anhcauhoi">
-				<img src="iconcauhoi.png" style="height: 100px; margin-left: 37px; margin-top: 10px">
+				<img src="/QAweb/img/iconcauhoi.png" style="height: 100px; margin-left: 37px; margin-top: 10px">
 			</div>
 			<div class="chude" id="chude" style="">
 
@@ -62,7 +62,7 @@
 		</div>	
 		<div  class="newbody4" style="border-radius: 5px ;overflow: auto" >
 			<div class="anhcauhoi">
-				<img src="iconcauhoi.png" style="height: 100px; margin-left: 37px; margin-top: 10px">
+				<img src="/QAweb/img/iconcauhoi.png" style="height: 100px; margin-left: 37px; margin-top: 10px">
 			</div>
 			<div class="chude" id="chude" style="">
 
