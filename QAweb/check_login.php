@@ -17,17 +17,18 @@
 	include "database/connect.php";
 
 
-	// get input user post
+	$check =false;
+
+	if(isset($_POST['btn_login'])){
+		// get input user post
 		$input_user = $_POST["email"];
 		$input_pass = $_POST["password"];
-
-	// check input null
-	if (!$input_user || !$input_pass) {
-		# TODO mess NULL
-		header('Location: index.php');
+		$check = true;
 	}
 
-	// get information from database
+	// check input null
+	if ($check && $input_user && $input_pass) {
+		// get information from database
 		# connect to database
 		$sql = "SELECT user_id,role_id, user_names, user_pass, user_status FROM users u WHERE user_names = '$input_user' AND user_pass = '$input_pass'";
 		$result = $conn->query($sql);
@@ -61,7 +62,7 @@
 				if ($sql_role <= 2){
 					header('Location: teacher');	// go to page teacher
 				} else {
-					header('Location: student');	// go to page student
+					header('Location: index.php');	// go to page student
 				}
 			} else {  // false: account banning
 				# TODO: baning account
@@ -69,7 +70,23 @@
 			}
 		}else{	// false: incorrect info account
 			# TODO: re-input
-			echo "Thông tin tài khoản hoặc mật khẩu không chính xác!";
+			echo "
+				<script>
+					alert('Thông tin tài khoản hoặc mật khẩu không chính xác!');
+				</script>
+			";
+
+
+
 		}
 
+	}
+
+	else echo "
+				<script>
+					alert('Bạn cần nhập đầy đủ thông tin để đăng nhập!');
+				</script>
+			";
+
+	
 ?>
