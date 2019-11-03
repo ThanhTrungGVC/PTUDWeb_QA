@@ -31,15 +31,26 @@
 
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar" style="background-color:#333333;color:white;height:50px">
 	        MENU
-	    </button>
+		</button>
+		
+		<?php 
+			$id_tc = $_SESSION['us_id'];
+			$sql = "SELECT * FROM users u
+					INNER JOIN roles r ON u.role_id = r.role_id
+					WHERE user_id = '$id_tc'";
+			$result = $conn->query($sql);
+			$row = $result->fetch_assoc();
+		?>
 	 
 	    <div class="collapse navbar-collapse" id="collapsibleNavbar">
 	        <ul class="navbar-nav ml-auto">
 	            <li class="nav-item m-1">
-	                <a class="nav-link" href="#" data-toggle="collapse" data-target="#quanly" style="color:black;font-weight:bold;font-size: 20px">Quản Lý <img src="/QAweb/img/muiten.png" width="25px"></a>
-	            </li>
-	            <li class="nav-item m-1">
-	                <a class="nav-link" href="#" data-toggle="collapse" data-target="#user"><img src="/QAweb/img/user.png" width="30px"> <img src="/QAweb/img/muiten.png" width="25px"></a>
+					<a class="nav-link" href="#" data-toggle="collapse" data-target="#quanly" style="color:black;font-weight:bold;font-size: 20px">
+						<img src="/QAweb/img/user.png" width="30px">
+						<?php
+							echo $row['name'];
+						?>
+					</a>
 	            </li>
 	        </ul>
 	    </div>
@@ -47,71 +58,48 @@
 
 	<div class= "container-fluid collapse" id="quanly">
          <div class= "row justify-content-end">
-            <div class ="col-md-5" style="background-color:#007fff">
+            <div class ="col-md-3" style="background-color:#007fff">
             	<div class="card m-3" style="float:left;">
             		<img src="/QAweb/img/user.png" width="80px">	
             	</div>
             	<div class="card m-3" style="background-color:#e5e5e5">
             		<div class="row">
             			<div class="col-md-9">
-            				<img src="/QAweb/img/user.png" width="30px"> Phạm Đức Long (17020866)
+            				<img src="/QAweb/img/user.png" width="30px"> <?php echo $row['name'] . " ( ". $row['user_id'] . " )";  ?>
             			</div>
             		</div>
 
             		<div class="row">
             			<div class="col-md-9">
-            				<img src="/QAweb/img/mu.png" width="30px"> Chức vụ : Chủ Tọa
+            				<img src="/QAweb/img/mu.png" width="30px"> Vai tro : <?php echo $row['role_name']; ?>
             			</div>
             		</div>
 
             		<div class="row">
             			<div class="col-md-9">
-            				<img src="/QAweb/img/dauhoi.png" width="30px"> Tổng số câu hỏi : 0
+							<img src="/QAweb/img/donghonguoc.png" width="30px"> 
+							<a href="SuaThongTinNguoiDung.php">Cập nhập thông tin</a>
+            			</div>
+					</div>
+					
+					<div class="row">
+            			<div class="col-md-9">
+							<img src="/QAweb/img/donghonguoc.png" width="30px"> 
+							<a href="/QAweb">Tư cách người dùng</a>
             			</div>
             		</div>
 
             		<div class="row">
             			<div class="col-md-9">
-            				<img src="/QAweb/img/donghonguoc.png" width="30px"> Lần cuối đặt câu hỏi : N/A
-            			</div>
-            		</div>
-
-            		<div class="row">
-            			<div class="col-md-9">
-            				<img src="/QAweb/img/donghocat.png" width="30px"> Câu hỏi chưa trả lời : 0
+            				<img src="/QAweb/img/donghocat.png" width="30px"> <a href="#">Dang xuat</a>
             			</div>
             		</div>
             	</div>
-
-            	
-            		<div>Danh sách câu hỏi hiển thị</div>
-      
             </div>
          </div>
     </div>
 	
-	<div class= "container-fluid collapse" id="user">
-         <div class= "row justify-content-end">
-            <div class ="col-md-3" style="background-color:#00ff00">
-               <div>Phạm Đức Long</div>
-               <br>
-               <div>Chức vụ : Chủ tọa</div>
-               <br>
-               <div>
-               		<a href="SuaThongTinNguoiDung.php">
-               			Cập nhập thông tin
-               		</a>
-           	   </div>
-               <br>
-               <div>
-               		<a href="#">
-               			Đăng xuất
-               		</a>
-           	   </div>
-            </div>
-         </div>
-    </div>
-
+	
     <div class="card">
     	<div class="card-body">
     		<div style="background-color:#999999;width:100%;height:800px;">
@@ -258,7 +246,7 @@
 			        </div>
 				</div>
 				
-				<?php include("saukhichonphien.php");?>
+				<?php include("show_session.php");?>
 			</div>
 			
 		</div>
