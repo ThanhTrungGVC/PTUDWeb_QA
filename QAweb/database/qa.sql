@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: localhost
--- Thời gian đã tạo: Th10 02, 2019 lúc 12:40 PM
+-- Thời gian đã tạo: Th10 05, 2019 lúc 03:29 PM
 -- Phiên bản máy phục vụ: 10.4.8-MariaDB
 -- Phiên bản PHP: 7.3.11
 
@@ -24,6 +24,58 @@ SET time_zone = "+00:00";
 --
 CREATE DATABASE IF NOT EXISTS `qa` DEFAULT CHARACTER SET utf8 COLLATE utf8_vietnamese_ci;
 USE `qa`;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `comments`
+--
+
+DROP TABLE IF EXISTS `comments`;
+CREATE TABLE IF NOT EXISTS `comments` (
+  `cmt_id` int(11) NOT NULL AUTO_INCREMENT,
+  `question_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `content` varchar(500) COLLATE utf8_vietnamese_ci NOT NULL,
+  `create_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `likes` int(11) NOT NULL,
+  PRIMARY KEY (`cmt_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `comments`
+--
+
+INSERT INTO `comments` (`cmt_id`, `question_id`, `user_id`, `content`, `create_date`, `likes`) VALUES
+(2, 2, 2, 'Trên website môn học và trên internet', '2019-11-05 13:59:30', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `questions`
+--
+
+DROP TABLE IF EXISTS `questions`;
+CREATE TABLE IF NOT EXISTS `questions` (
+  `question_id` int(11) NOT NULL AUTO_INCREMENT,
+  `ss_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `content` varchar(500) COLLATE utf8_vietnamese_ci NOT NULL,
+  `create_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `likes` int(11) NOT NULL,
+  PRIMARY KEY (`question_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `questions`
+--
+
+INSERT INTO `questions` (`question_id`, `ss_id`, `user_id`, `content`, `create_date`, `likes`) VALUES
+(1, 9, 2, 'Học phát triển ứng dụng Web cần những yêu cầu gì?', '2019-11-05 10:44:47', 0),
+(2, 9, 2, 'Tài liệu môn học tìm ở đâu?', '2019-11-05 11:32:22', 0),
+(3, 9, 2, 'Ứng dụng môn học này là gì?', '2019-11-05 11:35:50', 0),
+(4, 9, 2, 'Các vấn đề trọng tâm của môn học là gì?', '2019-11-05 11:36:18', 0),
+(5, 13, 2, 'Môn học này bao nhiêu tín chỉ? Thời gian thực hành như thế nào?', '2019-11-05 12:48:38', 0);
 
 -- --------------------------------------------------------
 
@@ -66,7 +118,7 @@ CREATE TABLE IF NOT EXISTS `sessions` (
   `ss_pass` varchar(30) COLLATE utf8_vietnamese_ci DEFAULT NULL,
   `ss_status` varchar(15) COLLATE utf8_vietnamese_ci NOT NULL,
   PRIMARY KEY (`ss_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `sessions`
@@ -74,7 +126,10 @@ CREATE TABLE IF NOT EXISTS `sessions` (
 
 INSERT INTO `sessions` (`ss_id`, `user_id`, `ss_title`, `ss_describe`, `create_date`, `time_start`, `time_end`, `ss_pass`, `ss_status`) VALUES
 (9, 2, 'Phat trien ud web', 'int3306', '2019-11-02 10:11:02', '2019-11-01 07:05:00', '2019-11-12 00:00:00', '', 'action'),
-(10, 3, 'Hệ thống thông tin', 'Phát triển hệ thống thông tin', '2019-11-02 11:33:42', '2019-11-02 17:00:00', '2019-11-02 17:30:00', 'httt', 'close');
+(10, 3, 'Hệ thống thông tin', 'Phát triển hệ thống thông tin', '2019-11-02 11:33:42', '2019-11-02 17:00:00', '2019-11-02 17:30:00', 'httt', 'close'),
+(11, 2, 'Tiêu đề 1', 'hihii', '2019-11-02 14:36:14', '2019-11-02 21:33:00', '2019-11-02 21:35:00', '12345', 'close'),
+(12, 2, 'lập trình ', 'học lại', '2019-11-05 08:27:15', '2019-11-05 14:22:00', '2019-11-05 15:04:00', '123456', 'close'),
+(13, 2, 'Phát triển ứng dụng Web - INT3306 UET', 'môn phát triển ứng dụng Web của Trường Đại học Công nghệ - Đại học Quốc gia Hà Nội', '2019-11-05 12:53:27', '2019-11-05 19:00:00', '2019-11-05 19:50:00', 'uet', 'close');
 
 -- --------------------------------------------------------
 
