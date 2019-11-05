@@ -17,18 +17,17 @@
 	include "database/connect.php";
 
 
-	$check =false;
-
-	if(isset($_POST['btn_login'])){
-		// get input user post
+	// get input user post
 		$input_user = $_POST["email"];
 		$input_pass = $_POST["password"];
-		$check = true;
-	}
 
 	// check input null
-	if ($check && $input_user && $input_pass) {
-		// get information from database
+	if (!$input_user || !$input_pass) {
+		# TODO mess NULL
+		header('Location: index.php');
+	}
+
+	// get information from database
 		# connect to database
 		$sql = "SELECT user_id,role_id, user_names, user_pass, user_status FROM users u WHERE user_names = '$input_user' AND user_pass = '$input_pass'";
 		$result = $conn->query($sql);
@@ -70,23 +69,7 @@
 			}
 		}else{	// false: incorrect info account
 			# TODO: re-input
-			echo "
-				<script>
-					alert('Thông tin tài khoản hoặc mật khẩu không chính xác!');
-				</script>
-			";
-
-
-
+			echo "Thông tin tài khoản hoặc mật khẩu không chính xác!";
 		}
 
-	}
-
-	else echo "
-				<script>
-					alert('Bạn cần nhập đầy đủ thông tin để đăng nhập!');
-				</script>
-			";
-
-	
 ?>

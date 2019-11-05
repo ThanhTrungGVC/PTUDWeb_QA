@@ -97,7 +97,7 @@
 
                             <div class='card m-3'>
                                 <div style='margin-left: 30px;'>
-                                    <p>TÊN PHIÊN: <a href='clickvaophiendetraloi.php' style='text-transform: uppercase;'><strong>". $row['ss_title'] ."</strong></a></p>
+                                    <p>TÊN PHIÊN: <a href='session_detail.php?ss_id=".$row['ss_id']."' style='text-transform: uppercase;'><strong>". $row['ss_title'] ."</strong></a></p>
                                     <p><strong>Người tạo:</strong> ". $row['name'] ."
                                     <p><strong>Thời gian bắt đầu:</strong> ". $row['time_start'] ." &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <strong>Thời gian kết thúc:</strong> ". $row['time_end'] ." 
                                     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <strong>Số câu hỏi:</strong> 5

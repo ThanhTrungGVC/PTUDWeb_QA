@@ -1,24 +1,24 @@
 <?php
-    session_start();
-    include "database/connect.php";
+    ## start session
+        session_start();
+
+    ## import connect.php
+		include "database/connect.php";
+    
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Question Anwser</title>
+	<title></title>
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-	<style type="text/css">
-		li a:hover{
-			background-color:#0000ff;
-		}
-		
-	</style>
 </head>
 <body>
-	<nav class="navbar navbar-expand-sm" style="background-color:#00ffff">
+
+
+<nav class="navbar navbar-expand-sm" style="background-color:#00ffff">
 		<div class="navbar-nav navbar-expand">
 			<ul class="navbar-nav ml-md-5">
 				<li class="nav-item p-2 ml-md-5">
@@ -57,8 +57,6 @@
 	        </ul>
 	    </div>
     </nav>
-
-
     
     <div class= "container-fluid collapse" id="quanly">
          <div class= "row justify-content-end">
@@ -108,19 +106,60 @@
          </div>
     </div>
 
-    <div class="card">
-    	<div class="card-body">
-    		<div style="background-color:#e5e5e5;width:100%;height:800px;">
+    <?php
+        # get id session
+        if ($_GET['ss_id']) {
+            $id_session = $_GET['ss_id'];
 
-	    		<nav class="navbar navbar-expand-sm" style="background-color:gray;width:100%;">
-					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#danhsachphienhoidap" style="background-color:#333333;color:white;height:50px">
-				        Danh sách
+            $sql = "SELECT s.ss_id, s.ss_title, s.ss_describe, u.name, s.create_date, s.create_date, s.time_start, s.time_end, s.ss_pass, s.ss_status
+                FROM sessions s INNER JOIN users u ON s.user_id = u.user_id WHERE s.ss_id = '$id_session'";
+                
+            $result = $conn->query($sql);
+
+            if (!$result) {
+                die('Error connect to datatbase session. Please try again!');
+            } else{
+                $row = $result->fetch_assoc();
+            }
+        }
+    ?>
+
+
+	<div class= "container-fluid">
+         <div class= "row">
+            <div class ="col-md-12" style="background-color:#007fff">
+            	<div class="card m-3" style="float:left;">
+            		<img src="/QAweb/img/user.png" width="140px">	
+            	</div>
+            	<div class="card m-3">
+            		<div>
+                        <p style="display:inline;">TÊN PHIÊN HỎI ĐÁP:&emsp;&emsp;&emsp;&emsp;
+                            <strong style="text-transform: uppercase; color: blue; font-size: 30px;"> 
+                                <?php echo $row['ss_title']; ?>
+                            </strong>
+                        </p>
+                        <p style="float: right; margin-right: 50px;">Trang thai: <?php echo $row['ss_status']; ?> </p>
+            			<p>MÔ TẢ: <?php echo $row['ss_describe']; ?></p>
+            			<p>ĐĂNG BỞI : <span style="color:red"><?php echo $row['name']; ?></span></p>	
+                        <span>THỜI GIAN BAT DAU : <?php echo $row['time_start']; ?></span>
+                        <span style="margin-left: 150px;">THỜI GIAN KET THUC : <?php echo $row['time_end']; ?></span>
+                        <span style="margin-left: 250px;">SO CAU HOI : <?php echo 5; ?></span>
+            		</div>	
+            	</div>
+            </div>
+         </div>
+    </div>
+
+    
+        <nav class="navbar navbar-expand-sm" style="background-color:#e5e5e5;width:100%;">
+					<button class="navbar-toggler" type="button" data-toggle="modal" data-target="#datcauhoi" style="background-color:#00ff00;color:black;height:50px">
+				        Đặt câu hỏi
 				    </button>
 	 
 				    <div class="collapse navbar-collapse">
-				        <ul class="navbar-nav mr-auto" style="background-color:#00ffff">
-				            <li class="nav-item m-1">
-				                <a class="nav-link" href="#" data-toggle="collapse" data-target="#danhsachphienhoidap" style="color:black;font-weight:bold;font-size: 20px">Danh sách phiên hỏi đáp <img src="/QAweb/img/danhsachqa.png" width="50px"></a>
+				        <ul class="navbar-nav mr-auto" style="background-color:#00ff00">
+				            <li class="nav-item ">
+				                <a class="nav-link" href="#" data-toggle="modal" data-target="#datcauhoi" style="color:black;font-weight:bold;font-size: 20px">Đặt câu hỏi</a>
 				            </li>
 				        </ul>
 				    </div>
@@ -134,41 +173,45 @@
 			           </li>
         		    </ul>
 
-				</nav>
+		</nav>
 
-				<div class= "container-fluid collapse" id="danhsachphienhoidap">
-			        <div class= "row justify-content-start">
-                        <div class ="col-md-3" style="background-color:#00ff00">
-                            <div >
-				               	<a href="index.php">
-				               		Tất cả các phiên
-				               	</a>
-                              </div>
-                              <br>
-			               <div >
-				               	<a href="index.php?status=action">
-				               		Phiên hỏi đáp đang hoạt động
-				               	</a>
-                              </div>
-                              <br>
-			               <div>
-				               	<a href="index.php?status=close">
-				               		Phiên hỏi đáp đã đóng
-				               	</a>
-			           	   </div>
-			               <br>
+			<div class="modal" id="datcauhoi">
+			         <div class="modal-dialog">
+			            <div class="modal-content">
+			               <div class="modal-header" style="background-color:#07eaea">
+			                  <h4 class="modal-title" style="text-align:center;">Đặt câu hỏi</h4>
+			                  <button class="close" data-dismiss="modal">&times;</button>
+			               </div>
+			       
+			               <div class="modal-body">
+			                  <label>NỘI DUNG CÂU HỎI :</label>
+			                  <textarea class="form-control" rows="5" id="comment"></textarea>
+			               </div>
+			              
+			               <div class="modal-footer">
+			                  <button type="button" class="btn btn-danger" data-dismiss="modal">Ẩn danh</button>
+			                  <button type="button" class="btn btn-primary" data-dismiss="modal">Xác nhận</button>
+			               </div>
 			            </div>
-			        </div>
-                </div>
+			         </div>
+      		    </div>
+   
 
-                <?php include('show_session.php'); ?>
+    <div class= "container-fluid">
+         <div class= "row">
+            <div class ="col-md-12" style="background-color:#e5e5e5">
+            	<div class="card m-3" style="float:left;">
+            		<img src="/QAweb/img/user.png" width="80px">	
+            	</div>
+            	<div class="card m-3">
+            		<div>
+            			<p>Tóm tắt câu hỏi...</p>
+            			<p>ĐĂNG BỞI : <span style="color:red">TÊN TÀI KHOẢN</span>/KHUYẾT DANH</p>	
+            			<span>Số câu trả lời :&nbsp&nbsp&nbsp&nbsp&nbsp Số lượt thích :</span>
+            		</div>	
+            	</div>
             </div>
-            
-        </div>
-        
+         </div>
     </div>
-
-    
 </body>
-
 </html>

@@ -1,5 +1,3 @@
-<?php include "check_login.php"; ?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -77,7 +75,7 @@
     		<div style="background-color:#999999;width:50%;height:300px;">
 	    		<p style="font-size:20px;">Đăng Nhập Bằng Tài Khoản UETMAIL</p>
         	    <div>
-	        	    <form method="POST" action="">
+	        	    <form method="POST" action="check_login.php">
 					   <div class="row m-2">
 					   	  <div class="col-md-2 col-sm-5" style="font-weight:bold;">Tài Khoản : </div>
 					      <div class="col-md-10 col-sm-6">
@@ -99,13 +97,12 @@
 					   <div class="row m-2 w-100"></div>
 
 					   <div class="row m-2 justify-content-center">
-					   	  <button name="btn_login" type="submit" class="btn btn-primary">Đăng Nhập</button>
+					   	  <button type="submit" class="btn btn-primary">Đăng Nhập</button>
 					   </div>
 					</form>
 				</div>
     		</div>
     	</div>
-
 
     	<div class="card-footer" style="height:180px;background-color:#191919;color:white" align="left">
     		<p class="card-text m-3">Thông tin liên hệ : </p>
