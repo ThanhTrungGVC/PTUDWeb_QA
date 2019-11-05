@@ -54,7 +54,7 @@
             die("Error create session. Try again!") ;
         } else{
             // success
-            echo "Create sesion success!";
+            #echo "Create sesion success!";
         }
     }
 

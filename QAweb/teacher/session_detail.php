@@ -1,112 +1,288 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-	<title>Chi tiet phien hoi dap</title>
-	<meta charset="utf-8">	
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!-- Import Boostrap css, js, font awesome here -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">       
-    <link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">  
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js">
-    </script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <link href="./giaodien2.css" rel="stylesheet"> 
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Chi tiết phiên hỏi đáp</title>
+
+	<!-- <link rel="shortcut icon" type="image/png" href="webimage/icon.png"/>
+	<!-- CSS, Boostrap 
+	<link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="fontawesome/all.css">
+	<link rel="stylesheet" href="MDB/css/mdb.css">
+	<!-- Javascript 
+	<script src="jquery-3.3.1.min.js"></script>
+	<script src="bootstrap/js/bootstrap.js"></script>
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<script src="MDB/js/mdb.js"></script>
+	<script type="text/javascript" src="fontawesome/all.js"></script>
+	<script type="text/javascript" src="jcarousel/jquery.jcarousel.min.js"></script>
+	<script type="text/javascript" src="jcarousel/jcarousel.responsive.js"></script>-->
+
+
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.11/css/mdb.min.css" rel="stylesheet">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.11/js/mdb.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.js"></script>
+	<link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-
-
-
-	<div class="newbody">
-		<nav class="navbar navbar-expand-md navbar-light bg-light sticky-top" style="height: 100px">
-					<div class="container-fluid" >
-						<h2>DIỄN ĐÀN TRAO ĐỔI THÔNG TIN</h2>
-						<!-- myclose() đóng trang web thay đổi thông tin đang hiển thị -->
-					</div>
-		</nav>
-		<div class="newbody1" style="overflow: auto;border-radius:8px">
-			<button  id="sarch" class="sarch" style="background-color: #2EFEF7 ; width: 150px; height: 50px ; margin-top: 10px; margin-left:105px ;margin-bottom: 10px ;border-radius:8px" >SARCH </button>
-			
-			<button id="question" style="background-color: #2EFEF7 ; width: 150px; height: 50px ; margin-top: 10px;float: right ;margin-right: 105px ; margin-bottom: 10px ;border-radius:8px">ĐẶT CÂU HỎI</button>
+	<?php include "show_ss_detail.php"; ?>
+	<div class="container mb-5">
+	<nav class="navbar navbar-expand-sm" style="background-color:#00ffff">
+		<div class="navbar-nav navbar-expand">
+			<a href="index.php">
+			<ul class="navbar-nav ml-md-5">
+				<li class="nav-item p-2 ml-md-5">
+					<img src="/QAweb/img/logouet.png" width="60px">
+				</li>
+				<li class="nav-item p-2">
+					<img src="/QAweb/img/logoqa.png" width="60px">
+				</li>
+			</ul></a>
 		</div>
 
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar" style="background-color:#333333;color:white;height:50px">
+	        MENU
+		</button>
 		
+		<?php 
+			$id_tc = $_SESSION['us_id'];
+			$sql_us = "SELECT * FROM users u
+					INNER JOIN roles r ON u.role_id = r.role_id
+					WHERE user_id = '$id_tc'";
+			$result_us = $conn->query($sql_us);
+			$row_us = $result_us->fetch_assoc();
+		?>
+	 
+	    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+	        <ul class="navbar-nav ml-auto">
+	            <li class="nav-item m-1">
+					<a class="nav-link" href="#" data-toggle="collapse" data-target="#quanly" style="color:black;font-weight:bold;font-size: 20px">
+						<img src="/QAweb/img/user.png" width="30px">
+						<?php
+							echo $row_us['name'];
+						?>
+					</a>
+	            </li>
+	        </ul>
+	    </div>
+	</nav>
+		<!-- Thông tin của 1 phiên -->
+		<div class="winter-neva-gradient mt-4">
+			<div class="pl-3 pt-2">
+				<h2>Thông tin phiên: <strong><?php echo $row['ss_title']; ?></strong></h2>
+			</div>
+			<hr class="my-2">
+			<div class="row pl-3 py-2 ">
+				<div class="col-sm-4">
+					<div>
+						<h5>
+							<b>Chủ đề</b>
+						</h5>
+						<h6>
+							<?php echo $row['ss_title']; ?>
+						</h6>
+					</div>
 
-		<div class="modal" id="taophienkhaosat">
-			         <div class="modal-dialog">
-			            <div class="modal-content">
-			               <div class="modal-header" style="background-color:#07eaea">
-			                  <h4 class="modal-title" style="text-align:center;">PHIÊN KHẢO SÁT</h4>
-			                  <button class="close" data-dismiss="modal">&times;</button>
-			               </div>
-			       
-			               <div class="modal-body">
-			               	  <h3>Câu 1 : </h3>
-			                  <label>Nhập nội dung :</label>
-			                  <input type="text" class="form-control">
-			                  <br>
-			                  <div class="form-inline">
-			                  	  <input type="checkbox"> &nbsp&nbsp&nbsp&nbsp
-				                  <input type="text" class="form-control" placeholder="Lựa chọn 1" size="30">
-			                  </div>
-			                  <br>
-			                  <div class="form-inline">
-				                  <input type="checkbox"> &nbsp&nbsp&nbsp&nbsp
-				                  <input type="text" class="form-control" placeholder="Lựa chọn 2" size="30">
-			                  </div>
-			                  <br>
-			                  <input type="text" class="form-control" placeholder="Khác...">
-			               </div>
-			              
-			               <div class="modal-footer">
-			                  <button type="button" class="btn btn-info">Thêm Câu</button>
-			                  <button type="button" class="btn btn-success">Xác Nhận</button>
-			               </div>
-			            </div>
-			         </div>
-      	</div>
-		
-		<div class="newbody2" style="overflow: auto; border-radius: 8px">
-			<div style="padding-top: 20px ; padding-left: 50px ; overflow: auto;" class="theme" >
-				<label><h5>CHỦ ĐỀ :</h5></label>
-				<label id="even_name"> diễn đàn cau hỏi </label><br>
-				<div class="time" style="padding-top: 90px" >
-					<label >THỜI GIAN MỞ :</label>
-					<label id="start-time"> 9h</label>
-					<label  style="padding-left: 100px">THỜI GIAN ĐÓNG :</label>
-					<label id="end-time"> 9h</label>
-					<label style="padding-left: 100px"> NGƯỜI TẠO :</label>
-					<label  id="user"> ad</label>
+					<div>
+						<h5>
+							<b>Mô tả</b>
+						</h5>
+						<h6>
+							<?php echo $row['ss_describe']; ?>
+						</h6>
+					</div>
+					<h5>
+						<b>So luong cau hoi: </b> <?php echo $row['num_qs']; ?>
+					</h5>
+					<h5>
+						<b>So luong khao sat: </b> <?php echo 0; ?>
+					</h5>
+					<div>
+
+					</div>
 				</div>
-			</div>
-			<div class="option" style="overflow: auto" >
-				
-				<button id="repair" style="background-color: #2EFEF7 ; width: 150px; height: 30px ;margin-top: 10px ;border-radius:8px ; margin-top: 40px ; margin-right: 100px">sửa</button><br>
-				<button id="delete" style="background-color: #2EFEF7 ; width: 150px; height: 30px ;margin-top: 10px ;border-radius:8px">xóa</button><br>
-				<button id="closed" style="background-color: #2EFEF7 ; width: 150px; height: 30px ;margin-top: 10px ; margin-bottom: 30px ;border-radius:8px" >đóng ngay</button>
-			</div>
-		</div>
-		
-		<div class="newbody3" style="overflow: auto;border-radius:8px">
-			<div  class="user" style=" padding-top:20px ; padding-left: 50px">
-				<label><h6>TÊN NGƯỜI DÙNG : </h6></label>
-				<label id="user-name"> nguyen van a</label>
-				
-				<h6 style="margin-top: 20px">NỘI DUNG TRẢ LỜI :</h6>
-			</div>
-			<textarea style="width: 40%; height: 120px ; margin-top: 80px ; margin-left: 20px"></textarea>
-			<div class="user-option">
-				<button style="background-color:#2EFEF7 ; width: 150px; height: 30px ;margin-top: 70px ; margin-right: 100px ;border-radius:8px">xóa conmemt</button><br>
-				<button style="background-color: #2EFEF7 ; width: 150px; height: 30px ;margin-top: 20px ; margin-bottom: 10px ;border-radius:8px">đặt làm đáp án </button>
-			</div>
-
-		</div>
-		<nav class="navbar navbar-expand-md navbar-light bg-light sticky-bottom" style="height: 40px">
-					<div class="container-fluid" >
-						
+				<div class="col-sm-4">
+					<div>
+						<h5>
+							<b>Thời gian mở: </b>
+						</h5>
+						<h6>
+							<?php echo $row['time_start']; ?>
+						</h6>
 					</div>
-		</nav>
+					<div>
+						<h5>
+							<b>Thời gian đóng:</b>
+						</h5>
+						<h6>
+							<?php echo $row['time_end']; ?>
+						</h6>
+					</div>
+				</div>
+
+				<div class="col-sm-4">
+					<!-- Nút lựa chọn -->
+					<div>
+						<div class="input-group-btn mt-2 d-inline">
+							<button href="#" class="btn btn-primary aqua-gradient btn-sm m-0" type="submit"
+								role="button">Sửa phien</button>
+						</div>
+						<div class="input-group-btn mt-2 d-inline">
+							<button href="#" class="btn btn-primary aqua-gradient btn-sm m-0" type="submit"
+								role="button">Xóa phien</button>
+						</div>
+					</div>
+					<div class="input-group-btn mt-2">
+						<button href="#" class="btn btn-primary aqua-gradient btn-sm m-0" type="submit"
+							role="button">Quan ly khảo sát</button>
+					</div>
+					<?php if($row['ss_status'] == 'action') {
+						echo "
+							<div class='input-group-btn mt-2'>
+								<button href='#' class='btn btn-primary aqua-gradient btn-sm m-0' type='submit'
+									role='button' data-toggle='modal' data-target='#taocauhoi'>Thêm câu hỏi </button>
+							</div>
+						";
+					} ?>
+				</div>
+
+			</div>
+		</div>
+
+		<!-- show form add question -->
+		<div class="modal" id="taocauhoi">
+			<form method="POST" action="/QAweb/create_question.php?ss_id=<?php echo $_GET['ss_id']; ?>">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header" style="background-color:#07eaea">
+							<h4 class="modal-title" style="text-align:center;">THEM MOI CAU HOI</h4>
+							<button class="close" data-dismiss="modal">&times;</button>
+						</div>
+				
+						<div class="modal-body">
+							<label>Nhập nội dung cau hoi :</label>
+							<input type="text" class="form-control" name="ip_add_question">
+							<br>
+						</div>
+						
+						<div class="modal-footer">
+							<button type="button" class="btn btn-info">Dong</button>
+							<button type="submit" class="btn btn-success">Xác Nhận</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		  </div>
+		  
+		
+		<!-- Các câu hỏi có trong phiên -->
+		<div class="mt-4">
+			<div class="pl-3 pt-2 text-center">
+				<h2>Danh sách các câu hỏi</h2>
+			</div>
+			<div>
+				<hr class="my-2">
+				<!--Câu hỏi 1-->
+				<?php
+				$i = 1;
+				while ($row_q = $result_q->fetch_assoc()){
+					?>
+					<div class="container-fluid question">
+						<div class="winter-neva-gradient">
+							<!-- Phần câu hỏi -->
+							<h5 class="m-3 pt-3 qs_i">
+								<b>Câu hỏi <?php echo $i.": ". $row_q['content']; ?></b>
+								<div>
+									<h6>
+										<small class="text-muted" >
+											<p style="display: inline; class="mb-1">Người tạo: <?php echo $row_q['name']; ?></p><!--Tên người đặt câu hỏi -->
+											<p style="display: inline; float: right; margin-right: 150px;"> Số câu trả lời: <?php echo $row_q['num_cmt'];?></p>
+											<p>Thời gian tạo: <?php echo $row_q['create_date']; ?></p><!-- Thời gian đặt câu hỏi -->
+										</small>
+										<small class="text-muted">
+											<a href="#"> Xóa</a>
+											<?php
+												$us_ids = $_SESSION['us_id'];
+												if($row['user_id'] == $us_ids){
+													echo "<span> - </span><a href='#'>Sửa </a>";
+												}
+											?>
+										</small>
+									</h6>
+								</div>
+								
+							</h5>
+
+							<?php
+								$qs_ids = $row_q['question_id'];
+								$sql_c = "SELECT u.name, c.user_id, c.content, c.create_date FROM comments c 
+											INNER JOIN users u ON c.user_id = u.user_id
+											WHERE c.question_id = '$qs_ids'";
+								$result_c = $conn->query($sql_c);
+								
+								while ($row_c = $result_c->fetch_assoc()){
+								?>	
+									<!-- Phần trả lời -->
+									<div class="container-fluid anwser">
+										<div>
+											<div>
+												<b class="text-primary"><?php echo $row_c['name']; ?></b>
+												<p class="mb-1"><?php echo $row_c['content']; ?></p>
+											</div>
+											<div>
+												<h6>
+													<?php if($_SESSION['us_id'] == $row_c['user_id']) 
+															echo "<a href=''>Sửa </a><span> - </span>"; ?>
+													<a href="#">Xóa bình luận</a>
+													<span> - </span>
+													<a href="#">Chọn làm đáp án</a>
+													<span> - </span>
+													<small class="d-inline-block text-muted">
+														<p><?php echo $row_c['create_date']; ?></p>
+													</small>
+												</h6>
+											</div>
+										</div>	
+									</div>
+								<?php
+								}
+							?>
+							
+							<!-- Phần nhập câu trả lời-->
+							<?php
+								if($row['ss_status'] == 'action'){
+								?>
+									<div class='container-fluid pb-3 anwser txt_as'>
+										<form action="add_comment.php?ss_id=<?php echo $_GET['ss_id']?>&qs_id=<?php echo $row_q['question_id']?>" method='POST'>
+											<input type='text' class='form-control' style='border-radius: 1rem;' name='comment'
+													placeholder='Nhập câu trả lời'>
+										</form>
+									</div>
+								<?php
+								}
+							?>
+						</div>
+					</div>
+					<?php
+					$i++;
+				}
+				?>
+			</div>
+			
+		</div>
 	</div>
+
 </body>
+
 </html>

@@ -105,14 +105,16 @@
     		<div style="background-color:#999999;width:100%;height:800px;">
 
     			<nav class="navbar navbar-expand-sm" style="background-color:gray;width:100%;">
-					<button class="navbar-toggler" type="button" data-toggle="modal" data-target="#taophienhoidap" style="background-color:#333333;color:white;height:50px">
+					<button class="navbar-toggler" type="button" data-toggle="modal" 
+						data-target="#taophienhoidap" style="background-color:#333333;color:white;height:50px">
 				        Tạo phiên
 				    </button>
 	 
 				    <div class="collapse navbar-collapse">
 				        <ul class="navbar-nav mr-auto" style="background-color:#00ffff">
 				            <li class="nav-item m-1">
-				                <a class="nav-link" href="#" data-toggle="modal" data-target="#taophienhoidap" style="color:black;font-weight:bold;font-size:20px;width:304px;text-align:right;">Tạo phiên hỏi đáp <img src="/QAweb/img/danhsachqa.png" width="50px"></a>
+								<a class="nav-link" href="#" data-toggle="modal" data-target="#taophienhoidap" 
+								style="color:black;font-weight:bold;font-size:20px;width:304px;text-align:right;">Tạo phiên hỏi đáp <img src="/QAweb/img/danhsachqa.png" width="50px"></a>
 				            </li>
 				        </ul>
 				    </div>
@@ -172,7 +174,8 @@
 				        </ul>
 				    </div>
 
-				    <button class="navbar-toggler" type="button" data-toggle="modal" data-target="#taophienkhaosat" style="background-color:#333333;color:white;height:50px">
+					<button class="navbar-toggler" type="button" data-toggle="modal" 
+						data-target="#taophienkhaosat" style="background-color:#333333;color:white;height:50px">
 				        Khảo sát
 				    </button>
 	 
