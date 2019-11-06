@@ -103,10 +103,10 @@
 						</h6>
 					</div>
 					<h5>
-						<b>So luong cau hoi: </b> <?php echo $row['num_qs']; ?>
+						<b>Số lượng câu hỏi: </b> <?php echo $row['num_qs']; ?>
 					</h5>
 					<h5>
-						<b>So luong khao sat: </b> <?php echo 0; ?>
+						<b>Số lượng khảo sát: </b> <?php echo 0; ?>
 					</h5>
 					<div>
 
@@ -136,16 +136,16 @@
 					<div>
 						<div class="input-group-btn mt-2 d-inline">
 							<button href="#" class="btn btn-primary aqua-gradient btn-sm m-0" type="submit"
-								role="button">Sửa phien</button>
+								role="button">Sửa phiên</button>
 						</div>
 						<div class="input-group-btn mt-2 d-inline">
 							<button href="#" class="btn btn-primary aqua-gradient btn-sm m-0" type="submit"
-								role="button">Xóa phien</button>
+								role="button">Xóa phiên</button>
 						</div>
 					</div>
 					<div class="input-group-btn mt-2">
 						<button href="#" class="btn btn-primary aqua-gradient btn-sm m-0" type="submit"
-							role="button">Quan ly khảo sát</button>
+							role="button"><a href="survey_session.php" class="text-white" style="text-decoration:none">Quản lý khảo sát</a></button>
 					</div>
 					<?php if($row['ss_status'] == 'action') {
 						echo "
@@ -166,19 +166,19 @@
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header" style="background-color:#07eaea">
-							<h4 class="modal-title" style="text-align:center;">THEM MOI CAU HOI</h4>
+							<h4 class="modal-title" style="text-align:center;">THÊM MỚI CÂU HỎI</h4>
 							<button class="close" data-dismiss="modal">&times;</button>
 						</div>
 				
 						<div class="modal-body">
-							<label>Nhập nội dung cau hoi :</label>
+							<label>Nhập nội dung câu hỏi :</label>
 							<input type="text" class="form-control" name="ip_add_question">
 							<br>
 						</div>
 						
 						<div class="modal-footer">
-							<button type="button" class="btn btn-info">Dong</button>
-							<button type="submit" class="btn btn-success">Xác Nhận</button>
+							<button type="button" class="btn btn-info">Đóng</button>
+							<button type="submit" class="btn btn-success">Xác nhận</button>
 						</div>
 					</div>
 				</div>
@@ -202,7 +202,7 @@
 						<div class="winter-neva-gradient">
 							<!-- Phần câu hỏi -->
 							<h5 class="m-3 pt-3 qs_i">
-								<b>Câu hỏi <?php echo $i.": ". $row_q['content']; ?></b>
+								<b <?php if($row_q['role_id'] == 2) echo "style='color:#FFBF00;'"; ?>>Câu hỏi <?php echo $i.": ". $row_q['content']; ?></b>
 								<div>
 									<h6>
 										<small class="text-muted" >
@@ -225,8 +225,10 @@
 							</h5>
 
 							<?php
+							#include "delete.php";
 								$qs_ids = $row_q['question_id'];
-								$sql_c = "SELECT u.name, c.user_id, c.content, c.create_date FROM comments c 
+								$sql_c = "SELECT u.name, c.user_id, c.content, c.create_date, c.cmt_id, a.cmt_id AS 'DA' FROM comments c
+											LEFT JOIN answers a ON a.cmt_id = c.cmt_id
 											INNER JOIN users u ON c.user_id = u.user_id
 											WHERE c.question_id = '$qs_ids'";
 								$result_c = $conn->query($sql_c);
@@ -236,20 +238,34 @@
 									<!-- Phần trả lời -->
 									<div class="container-fluid anwser">
 										<div>
-											<div>
-												<b class="text-primary"><?php echo $row_c['name']; ?></b>
-												<p class="mb-1"><?php echo $row_c['content']; ?></p>
+											<div class="comment_c <?php if($row_c['cmt_id'] == $row_c['DA']) echo 'Da'; ?>">
+												<b class="text-primary c_left"><?php echo $row_c['name']; ?></b>
+												<p class="mb-1 c_content c_right" 
+													<?php if($row_q['role_id'] == 2) echo "style='color:#B43104; font-weight:bolder;'"; ?>>
+													<?php echo $row_c['content']; ?>
+												</p>
 											</div>
 											<div>
 												<h6>
-													<?php if($_SESSION['us_id'] == $row_c['user_id']) 
-															echo "<a href=''>Sửa </a><span> - </span>"; ?>
-													<a href="#">Xóa bình luận</a>
-													<span> - </span>
-													<a href="#">Chọn làm đáp án</a>
-													<span> - </span>
 													<small class="d-inline-block text-muted">
-														<p><?php echo $row_c['create_date']; ?></p>
+														<?php if($_SESSION['us_id'] == $row_c['user_id']) 
+																echo "<a href=''>Sửa </a><span> - </span>"; ?>
+														<a href="delete.php?ss_id=<?php echo $_GET['ss_id']; ?>&cmt_id=<?php echo $row_c['cmt_id'];?>" onclick="return confirm('Ban co chac chan muon xoa');">Xóa</a>
+														<span> - </span>
+														<?php 
+															if($row_c['cmt_id'] != $row_c['DA']){
+																?>
+																<a href="add_comment.php?ss_id=<?php echo $_GET['ss_id']?>&qs_id=<?php echo $row_q['question_id']?>&cmt_id=<?php echo $row_c['cmt_id']?>">Chọn làm đáp án</a>
+																<?php
+															}else{
+																?>
+																<a href="add_comment.php?ss_id=<?php echo $_GET['ss_id']?>&qs_id=<?php echo $row_q['question_id']?>&cmt_id=<?php echo $row_c['cmt_id']?>&stt=del">Xóa đáp án đúng</a>
+																<?php
+															}
+														?>
+														
+														<span> -- </span>
+														<a><?php echo $row_c['create_date']; ?></a>
 													</small>
 												</h6>
 											</div>

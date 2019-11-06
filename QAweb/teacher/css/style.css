@@ -20,9 +20,37 @@
     -o-border-radius: 10px;
     border-radius: 10px;
 }
+.comment_c{
+	width: 90%;
+	border: 1px solid;
+	padding-left: 15px;
+	padding-top: 5px;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    border-radius: 15px;
+}
+
+.c_content{
+	padding-left: 20px;
+}
+
+.c_left{
+	display: inline;
+}
+
+.c_right{
+	display: inline;
+	padding-left: 10px;
+}
 
 .anwser{
 	margin-left: 50px;
+}
+
+.Da{
+	background: #A9A9F5;
 }
 
 .txt_as{
