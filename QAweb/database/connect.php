@@ -13,6 +13,7 @@
 
 	# connect
 		$conn = mysqli_connect($hostname, $username, $password, $database);
+		mysqli_set_charset($conn, 'UTF8');
 
 	# check connect
 		if (!$conn) {

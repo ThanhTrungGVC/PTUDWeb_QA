@@ -2,12 +2,11 @@
 -- version 4.9.1
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: localhost
--- Thời gian đã tạo: Th10 05, 2019 lúc 03:29 PM
--- Phiên bản máy phục vụ: 10.4.8-MariaDB
--- Phiên bản PHP: 7.3.11
+-- Host: localhost
+-- Generation Time: Nov 06, 2019 at 01:59 PM
+-- Server version: 10.4.8-MariaDB
+-- PHP Version: 7.3.11
 
-SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
@@ -20,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `qa`
+-- Database: `qa`
 --
 CREATE DATABASE IF NOT EXISTS `qa` DEFAULT CHARACTER SET utf8 COLLATE utf8_vietnamese_ci;
 USE `qa`;
@@ -28,7 +27,30 @@ USE `qa`;
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `comments`
+-- Table structure for table `answers`
+--
+
+DROP TABLE IF EXISTS `answers`;
+CREATE TABLE IF NOT EXISTS `answers` (
+  `answer_id` int(11) NOT NULL AUTO_INCREMENT,
+  `question_id` int(11) NOT NULL,
+  `cmt_id` int(11) NOT NULL,
+  PRIMARY KEY (`answer_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
+
+--
+-- Dumping data for table `answers`
+--
+
+INSERT INTO `answers` (`answer_id`, `question_id`, `cmt_id`) VALUES
+(1, 2, 2),
+(3, 1, 8),
+(5, 2, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `comments`
 --
 
 DROP TABLE IF EXISTS `comments`;
@@ -40,19 +62,22 @@ CREATE TABLE IF NOT EXISTS `comments` (
   `create_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `likes` int(11) NOT NULL,
   PRIMARY KEY (`cmt_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `comments`
+-- Dumping data for table `comments`
 --
 
 INSERT INTO `comments` (`cmt_id`, `question_id`, `user_id`, `content`, `create_date`, `likes`) VALUES
-(2, 2, 2, 'Trên website môn học và trên internet', '2019-11-05 13:59:30', 0);
+(2, 2, 2, 'Trên website môn học và trên internet', '2019-11-05 13:59:30', 0),
+(3, 2, 2, 'Trên google thôi bạn', '2019-11-05 16:10:21', 0),
+(4, 3, 2, 'Tạo các ứng dụng Web', '2019-11-05 16:21:11', 0),
+(12, 2, 2, 'ahihi', '2019-11-06 09:31:05', 0);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `questions`
+-- Table structure for table `questions`
 --
 
 DROP TABLE IF EXISTS `questions`;
@@ -67,7 +92,7 @@ CREATE TABLE IF NOT EXISTS `questions` (
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `questions`
+-- Dumping data for table `questions`
 --
 
 INSERT INTO `questions` (`question_id`, `ss_id`, `user_id`, `content`, `create_date`, `likes`) VALUES
@@ -80,7 +105,7 @@ INSERT INTO `questions` (`question_id`, `ss_id`, `user_id`, `content`, `create_d
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `roles`
+-- Table structure for table `roles`
 --
 
 DROP TABLE IF EXISTS `roles`;
@@ -92,7 +117,7 @@ CREATE TABLE IF NOT EXISTS `roles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `roles`
+-- Dumping data for table `roles`
 --
 
 INSERT INTO `roles` (`role_id`, `role_name`, `note`) VALUES
@@ -103,7 +128,7 @@ INSERT INTO `roles` (`role_id`, `role_name`, `note`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `sessions`
+-- Table structure for table `sessions`
 --
 
 DROP TABLE IF EXISTS `sessions`;
@@ -121,7 +146,7 @@ CREATE TABLE IF NOT EXISTS `sessions` (
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `sessions`
+-- Dumping data for table `sessions`
 --
 
 INSERT INTO `sessions` (`ss_id`, `user_id`, `ss_title`, `ss_describe`, `create_date`, `time_start`, `time_end`, `ss_pass`, `ss_status`) VALUES
@@ -134,7 +159,7 @@ INSERT INTO `sessions` (`ss_id`, `user_id`, `ss_title`, `ss_describe`, `create_d
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `users`
+-- Table structure for table `users`
 --
 
 DROP TABLE IF EXISTS `users`;
@@ -150,7 +175,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`user_id`, `role_id`, `user_names`, `user_pass`, `name`, `create_date`, `user_status`) VALUES
@@ -159,7 +184,6 @@ INSERT INTO `users` (`user_id`, `role_id`, `user_names`, `user_pass`, `name`, `c
 (3, 2, 'gv2', '1234', 'Nguyễn Văn B', '2019-10-31 23:52:32', 'action'),
 (4, 3, 'hs1', '1234', 'Nguyễn Văn C', '2019-10-31 23:52:32', 'action'),
 (5, 3, 'hs2', '1234', 'Nguyễn Văn D', '2019-10-31 23:52:32', 'banning');
-SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
