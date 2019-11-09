@@ -211,10 +211,11 @@
 											<p>Thời gian tạo: <?php echo $row_q['create_date']; ?></p><!-- Thời gian đặt câu hỏi -->
 										</small>
 										<small class="text-muted">
-											<a href="#"> Xóa</a>
+											<a href="delete.php?ss_id=<?php echo $_GET['ss_id']; ?>&q_id=<?php echo $row_q['question_id'];?>" 
+												onclick="return confirm('Bạn có chắc chắn muốn xóa câu hỏi');"> Xóa</a>
 											<?php
 												$us_ids = $_SESSION['us_id'];
-												if($row['user_id'] == $us_ids){
+												if($row_q['user_id'] == $us_ids){
 													echo "<span> - </span><a href='#'>Sửa </a>";
 												}
 											?>
@@ -227,7 +228,7 @@
 							<?php
 							#include "delete.php";
 								$qs_ids = $row_q['question_id'];
-								$sql_c = "SELECT u.name, c.user_id, c.content, c.create_date, c.cmt_id, a.cmt_id AS 'DA' FROM comments c
+								$sql_c = "SELECT u.name, c.user_id, u.role_id, c.content, c.create_date, c.cmt_id, a.cmt_id AS 'DA' FROM comments c
 											LEFT JOIN answers a ON a.cmt_id = c.cmt_id
 											INNER JOIN users u ON c.user_id = u.user_id
 											WHERE c.question_id = '$qs_ids'";
@@ -241,7 +242,7 @@
 											<div class="comment_c <?php if($row_c['cmt_id'] == $row_c['DA']) echo 'Da'; ?>">
 												<b class="text-primary c_left"><?php echo $row_c['name']; ?></b>
 												<p class="mb-1 c_content c_right" 
-													<?php if($row_q['role_id'] == 2) echo "style='color:#B43104; font-weight:bolder;'"; ?>>
+													<?php if($row_c['role_id'] == 2) echo "style='color:#B43104; font-weight:bolder;'"; ?>>
 													<?php echo $row_c['content']; ?>
 												</p>
 											</div>

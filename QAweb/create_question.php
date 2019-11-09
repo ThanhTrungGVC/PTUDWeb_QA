@@ -24,7 +24,7 @@
     if (isset($_SESSION['us_id'])) {
         $get_us_id = $_SESSION['us_id'];
     } else {
-        $get_us_id = 0;     // user hide
+        $get_us_id = 6;     // user hide
     }
 
     #get info input
@@ -43,7 +43,9 @@
     if (!$result) {
         die("error insert to database!");
     } else {
-        header ("Location: teacher/session_detail.php?ss_id=$get_ss_id");
+        echo "<script>
+          window.history.back();
+        </script>";
     }
 
 ?>

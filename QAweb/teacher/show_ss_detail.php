@@ -21,7 +21,7 @@
 	$row = $result->fetch_assoc();
 	
 	# get info question
-	$sql_q = "SELECT q.question_id, u.name,u.role_id, q.create_date, q.content,
+	$sql_q = "SELECT q.question_id, u.name, u.user_id, u.role_id, q.create_date, q.content,
 					(SELECT COUNT(*) FROM comments c WHERE c.question_id = q.question_id) AS 'num_cmt'
 				FROM questions q
 				INNER JOIN users u ON q.user_id = u.user_id  AND  q.ss_id = '$session_ids'";
