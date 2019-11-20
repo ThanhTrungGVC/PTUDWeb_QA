@@ -2,10 +2,10 @@
 -- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Nov 20, 2019 at 10:02 AM
--- Server version: 10.4.6-MariaDB
--- PHP Version: 7.3.9
+-- Máy chủ: 127.0.0.1
+-- Thời gian đã tạo: Th10 20, 2019 lúc 10:24 AM
+-- Phiên bản máy phục vụ: 10.4.6-MariaDB
+-- Phiên bản PHP: 7.3.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `qa`
+-- Cơ sở dữ liệu: `qa`
 --
 CREATE DATABASE IF NOT EXISTS `qa` DEFAULT CHARACTER SET utf8 COLLATE utf8_vietnamese_ci;
 USE `qa`;
@@ -27,17 +27,19 @@ USE `qa`;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `answers`
+-- Cấu trúc bảng cho bảng `answers`
 --
 
-CREATE TABLE `answers` (
-  `answer_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `answers`;
+CREATE TABLE IF NOT EXISTS `answers` (
+  `answer_id` int(11) NOT NULL AUTO_INCREMENT,
   `question_id` int(11) NOT NULL,
-  `cmt_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
+  `cmt_id` int(11) NOT NULL,
+  PRIMARY KEY (`answer_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
 
 --
--- Dumping data for table `answers`
+-- Đang đổ dữ liệu cho bảng `answers`
 --
 
 INSERT INTO `answers` (`answer_id`, `question_id`, `cmt_id`) VALUES
@@ -50,20 +52,22 @@ INSERT INTO `answers` (`answer_id`, `question_id`, `cmt_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `comments`
+-- Cấu trúc bảng cho bảng `comments`
 --
 
-CREATE TABLE `comments` (
-  `cmt_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `comments`;
+CREATE TABLE IF NOT EXISTS `comments` (
+  `cmt_id` int(11) NOT NULL AUTO_INCREMENT,
   `question_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `content` varchar(500) COLLATE utf8_vietnamese_ci NOT NULL,
   `create_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `likes` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
+  `likes` int(11) NOT NULL,
+  PRIMARY KEY (`cmt_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
 
 --
--- Dumping data for table `comments`
+-- Đang đổ dữ liệu cho bảng `comments`
 --
 
 INSERT INTO `comments` (`cmt_id`, `question_id`, `user_id`, `content`, `create_date`, `likes`) VALUES
@@ -83,20 +87,22 @@ INSERT INTO `comments` (`cmt_id`, `question_id`, `user_id`, `content`, `create_d
 -- --------------------------------------------------------
 
 --
--- Table structure for table `questions`
+-- Cấu trúc bảng cho bảng `questions`
 --
 
-CREATE TABLE `questions` (
-  `question_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `questions`;
+CREATE TABLE IF NOT EXISTS `questions` (
+  `question_id` int(11) NOT NULL AUTO_INCREMENT,
   `ss_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `content` varchar(500) COLLATE utf8_vietnamese_ci NOT NULL,
   `create_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `likes` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
+  `likes` int(11) NOT NULL,
+  PRIMARY KEY (`question_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
 
 --
--- Dumping data for table `questions`
+-- Đang đổ dữ liệu cho bảng `questions`
 --
 
 INSERT INTO `questions` (`question_id`, `ss_id`, `user_id`, `content`, `create_date`, `likes`) VALUES
@@ -116,17 +122,19 @@ INSERT INTO `questions` (`question_id`, `ss_id`, `user_id`, `content`, `create_d
 -- --------------------------------------------------------
 
 --
--- Table structure for table `roles`
+-- Cấu trúc bảng cho bảng `roles`
 --
 
-CREATE TABLE `roles` (
+DROP TABLE IF EXISTS `roles`;
+CREATE TABLE IF NOT EXISTS `roles` (
   `role_id` int(4) NOT NULL,
   `role_name` varchar(150) COLLATE utf8_vietnamese_ci NOT NULL,
-  `note` varchar(255) COLLATE utf8_vietnamese_ci NOT NULL
+  `note` varchar(255) COLLATE utf8_vietnamese_ci NOT NULL,
+  PRIMARY KEY (`role_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
 
 --
--- Dumping data for table `roles`
+-- Đang đổ dữ liệu cho bảng `roles`
 --
 
 INSERT INTO `roles` (`role_id`, `role_name`, `note`) VALUES
@@ -137,11 +145,12 @@ INSERT INTO `roles` (`role_id`, `role_name`, `note`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sessions`
+-- Cấu trúc bảng cho bảng `sessions`
 --
 
-CREATE TABLE `sessions` (
-  `ss_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `sessions`;
+CREATE TABLE IF NOT EXISTS `sessions` (
+  `ss_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `ss_title` varchar(255) COLLATE utf8_vietnamese_ci NOT NULL,
   `ss_describe` varchar(500) COLLATE utf8_vietnamese_ci NOT NULL,
@@ -149,11 +158,12 @@ CREATE TABLE `sessions` (
   `time_start` datetime NOT NULL,
   `time_end` datetime NOT NULL,
   `ss_pass` varchar(30) COLLATE utf8_vietnamese_ci DEFAULT NULL,
-  `ss_status` varchar(15) COLLATE utf8_vietnamese_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
+  `ss_status` varchar(15) COLLATE utf8_vietnamese_ci NOT NULL,
+  PRIMARY KEY (`ss_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
 
 --
--- Dumping data for table `sessions`
+-- Đang đổ dữ liệu cho bảng `sessions`
 --
 
 INSERT INTO `sessions` (`ss_id`, `user_id`, `ss_title`, `ss_describe`, `create_date`, `time_start`, `time_end`, `ss_pass`, `ss_status`) VALUES
@@ -167,20 +177,22 @@ INSERT INTO `sessions` (`ss_id`, `user_id`, `ss_title`, `ss_describe`, `create_d
 -- --------------------------------------------------------
 
 --
--- Table structure for table `survey`
+-- Cấu trúc bảng cho bảng `survey`
 --
 
-CREATE TABLE `survey` (
-  `survey_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `survey`;
+CREATE TABLE IF NOT EXISTS `survey` (
+  `survey_id` int(11) NOT NULL AUTO_INCREMENT,
   `ss_id` int(11) NOT NULL,
   `survey_describe` varchar(500) COLLATE utf8_vietnamese_ci NOT NULL,
   `start_time_survey` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `close_time_survey` datetime NOT NULL,
-  `survey_status` varchar(15) COLLATE utf8_vietnamese_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
+  `survey_status` varchar(15) COLLATE utf8_vietnamese_ci NOT NULL,
+  PRIMARY KEY (`survey_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
 
 --
--- Dumping data for table `survey`
+-- Đang đổ dữ liệu cho bảng `survey`
 --
 
 INSERT INTO `survey` (`survey_id`, `ss_id`, `survey_describe`, `start_time_survey`, `close_time_survey`, `survey_status`) VALUES
@@ -190,18 +202,20 @@ INSERT INTO `survey` (`survey_id`, `ss_id`, `survey_describe`, `start_time_surve
 -- --------------------------------------------------------
 
 --
--- Table structure for table `survey_detail`
+-- Cấu trúc bảng cho bảng `survey_detail`
 --
 
-CREATE TABLE `survey_detail` (
-  `choose_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `survey_detail`;
+CREATE TABLE IF NOT EXISTS `survey_detail` (
+  `choose_id` int(11) NOT NULL AUTO_INCREMENT,
   `survey_id` int(11) NOT NULL,
   `choose_title` varchar(500) COLLATE utf8_vietnamese_ci NOT NULL,
-  `num_choose` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
+  `num_choose` int(11) NOT NULL,
+  PRIMARY KEY (`choose_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
 
 --
--- Dumping data for table `survey_detail`
+-- Đang đổ dữ liệu cho bảng `survey_detail`
 --
 
 INSERT INTO `survey_detail` (`choose_id`, `survey_id`, `choose_title`, `num_choose`) VALUES
@@ -214,21 +228,23 @@ INSERT INTO `survey_detail` (`choose_id`, `survey_id`, `choose_title`, `num_choo
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Cấu trúc bảng cho bảng `users`
 --
 
-CREATE TABLE `users` (
-  `user_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `role_id` int(4) NOT NULL,
   `user_names` varchar(30) COLLATE utf8_vietnamese_ci NOT NULL,
   `user_pass` varchar(30) COLLATE utf8_vietnamese_ci NOT NULL,
   `name` varchar(150) COLLATE utf8_vietnamese_ci NOT NULL,
   `create_date` datetime NOT NULL,
-  `user_status` varchar(100) COLLATE utf8_vietnamese_ci NOT NULL DEFAULT 'action'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
+  `user_status` varchar(100) COLLATE utf8_vietnamese_ci NOT NULL DEFAULT 'action',
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
 
 --
--- Dumping data for table `users`
+-- Đang đổ dữ liệu cho bảng `users`
 --
 
 INSERT INTO `users` (`user_id`, `role_id`, `user_names`, `user_pass`, `name`, `create_date`, `user_status`) VALUES
@@ -238,104 +254,6 @@ INSERT INTO `users` (`user_id`, `role_id`, `user_names`, `user_pass`, `name`, `c
 (6, 3, '', '', 'Người dùng ẩn danh', '2019-11-09 00:00:00', 'action'),
 (7, 3, 'hs1', '1234', 'Nguyễn Văn Thành', '2019-11-09 00:00:00', 'action'),
 (8, 3, 'hs2', '1234', 'Nguyễn Văn Trung', '2019-11-09 00:00:00', 'action');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `answers`
---
-ALTER TABLE `answers`
-  ADD PRIMARY KEY (`answer_id`);
-
---
--- Indexes for table `comments`
---
-ALTER TABLE `comments`
-  ADD PRIMARY KEY (`cmt_id`);
-
---
--- Indexes for table `questions`
---
-ALTER TABLE `questions`
-  ADD PRIMARY KEY (`question_id`);
-
---
--- Indexes for table `roles`
---
-ALTER TABLE `roles`
-  ADD PRIMARY KEY (`role_id`);
-
---
--- Indexes for table `sessions`
---
-ALTER TABLE `sessions`
-  ADD PRIMARY KEY (`ss_id`);
-
---
--- Indexes for table `survey`
---
-ALTER TABLE `survey`
-  ADD PRIMARY KEY (`survey_id`);
-
---
--- Indexes for table `survey_detail`
---
-ALTER TABLE `survey_detail`
-  ADD PRIMARY KEY (`choose_id`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`user_id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `answers`
---
-ALTER TABLE `answers`
-  MODIFY `answer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- AUTO_INCREMENT for table `comments`
---
-ALTER TABLE `comments`
-  MODIFY `cmt_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
-
---
--- AUTO_INCREMENT for table `questions`
---
-ALTER TABLE `questions`
-  MODIFY `question_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
-
---
--- AUTO_INCREMENT for table `sessions`
---
-ALTER TABLE `sessions`
-  MODIFY `ss_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
-
---
--- AUTO_INCREMENT for table `survey`
---
-ALTER TABLE `survey`
-  MODIFY `survey_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
-
---
--- AUTO_INCREMENT for table `survey_detail`
---
-ALTER TABLE `survey_detail`
-  MODIFY `choose_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
