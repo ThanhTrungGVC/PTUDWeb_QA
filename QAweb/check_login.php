@@ -7,12 +7,14 @@
 	* - kiểm tra phân quyền người dùng
 	*/
 
-	## import connect.php
-		include "database/connect.php";
-
-	## session
+	## start session
+		session_start();
 
 	## cookie
+
+
+	## import connect.php
+	include "database/connect.php";
 
 
 	// get input user post
@@ -27,7 +29,7 @@
 
 	// get information from database
 		# connect to database
-		$sql = "SELECT role_id, user_names, user_pass, user_status FROM users WHERE user_names = '$input_user' AND user_pass = '$input_pass'";
+		$sql = "SELECT user_id,role_id, user_names, user_pass, user_status FROM users u WHERE user_names = '$input_user' AND user_pass = '$input_pass'";
 		$result = $conn->query($sql);
 
 		if (!$result) {
@@ -52,11 +54,14 @@
 		if($input_user == $sql_user && $input_pass == $sql_pass){ // true
 			# check status
 			if($sql_status == "action"){	// true
+				# set value session
+				$_SESSION['us_id'] = $row['user_id'];
+				
 				# check role
 				if ($sql_role <= 2){
 					header('Location: teacher');	// go to page teacher
 				} else {
-					header('Location: student');	// go to page student
+					header('Location: index.php');	// go to page student
 				}
 			} else {  // false: account banning
 				# TODO: baning account

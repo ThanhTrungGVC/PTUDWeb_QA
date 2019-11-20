@@ -1,0 +1,95 @@
+.dangnhap {
+    margin: 50px auto;
+    height: 420px;
+    width: 1000px;
+    border-top: 2px solid #000000;
+    border-bottom: 2px solid #000000;
+}
+
+.question {
+    margin-bottom: 35px;
+}
+
+.qs_i {
+    background: #e6e6e6;
+    padding-left: 15px;
+    border: 2px solid;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    border-radius: 10px;
+}
+
+.comment_c {
+    width: 90%;
+    border: 1px solid;
+    padding-left: 15px;
+    padding-top: 5px;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    border-radius: 15px;
+}
+
+.c_content {
+    padding-left: 20px;
+}
+
+.c_left {
+    display: inline;
+}
+
+.c_right {
+    display: inline;
+    padding-left: 10px;
+}
+
+.anwser {
+    margin-left: 50px;
+}
+
+.Da {
+    background: #A9A9F5;
+}
+
+.txt_as {
+    width: 90%;
+}
+
+.navbar {
+    background: linear-gradient(to bottom, #A9BCF5, #CEF6F5) !important;
+}
+
+hr {
+    border: none;
+    height: 3px;
+    background: #BDBDBD;
+}
+
+label {
+    text-align: right;
+    margin-right: 80px;
+    float: left;
+    width: 200px
+}
+
+input {
+    margin-bottom: 10px;
+}
+
+.imge1 {
+    float: right;
+    height: 50px;
+    width: 150px;
+}
+
+.avata {
+    float: left;
+}
+
+.thongtin {
+    float: right;
+    margin-right: 150px
+}

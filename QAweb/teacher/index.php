@@ -1,166 +1,116 @@
+<?php include "create_session.php"; ?>
+
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-	<style type="text/css">
-		li a:hover{
-			background-color:#0000ff;
-		}
-		
-	</style>
+	<title>Quan Tri Cac Phien</title>
+	<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script> -->
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script> -->
+	<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> -->
+	<!-- CSS, Boostrap -->
+	<!-- <link rel="stylesheet" href="bootstrap/css/bootstrap.css"> -->
+	<link rel="stylesheet" href="/QAweb/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/QAweb/fontawesome/css/all.css">
+	<link rel="stylesheet" href="/QAweb/MDB/css/mdb.css">
+	<!-- Javascript -->
+	<script src="/QAweb/js/jquery-3.4.1.js"></script>
+	<script src="/QAweb/js/popper.min.js"></script>
+	<!-- <script src="bootstrap/js/bootstrap.js"></script> -->
+	<script src="/QAweb/bootstrap/js/bootstrap.min.js"></script>
+	<script src="/QAweb/MDB/js/mdb.js"></script>
+	<script type="text/javascript" src="/QAweb/fontawesome/js/all.js"></script>
+	<script type="text/javascript" src="/QAweb/jcarousel/jquery.jcarousel.min.js"></script>
+	<script type="text/javascript" src="/QAweb/jcarousel/jcarousel.responsive.js"></script>
 </head>
 <body>
-	<nav class="navbar navbar-expand-sm" style="background-color:#00ffff">
-		<div class="navbar-nav navbar-expand">
-			<ul class="navbar-nav ml-md-5">
-				<li class="nav-item p-2 ml-md-5">
-					<img src="logouet.png" width="60px">
-				</li>
-				<li class="nav-item p-2">
-					<img src="logoqa.png" width="60px">
-				</li>
-			</ul>
+	<!--header-->
+	<div class="rare-wind-gradient">
+		<div class="container mx-sm-auto">
+			<div class="row">
+				<div class="d-flex float-left">
+					<div class="d-inline-block p-2 m-auto mr-sm-3">
+						<a href="/QAweb/index.php"><img src="/QAweb/img/logouet.png" width="60px"></a>
+					</div>
+					<div class="d-inline-block text-center m-auto">
+					<div>
+						<a href="/QAweb/index.php" class="text-dark">
+							<h2 class="d-block mb-0">
+								QA-UET
+							</h2>
+							<h6 class="d-block mb-0">
+								<small>
+								Nơi trao đổi của mọi người
+								</small>
+							</h6>
+						</a>
+					</div>
+				</div>
+				</div>
+
+				<div class="col-sm-9 p-0 float-right mr-0 align-self-center">
+					<div class="float-right">
+						<div class="dropdown">
+							<?php
+							if (!isset($_SESSION['us_id'])) {
+								echo "<a class='nav-link' href='login.php' > Dang Nhap </a>";
+							} else {
+								$id = $_SESSION['us_id'];
+								$sql = "SELECT u.name, u.user_id, r.role_name, u.role_id FROM users u INNER JOIN roles r ON r.role_id = u.role_id WHERE u.user_id = '$id'";
+								$result = $conn->query($sql);
+								$row = $result->fetch_assoc();
+								echo "
+								<i class='fas fa-user'></i>
+								<a class='dropdown-toggle' id='dropdownMenuButton' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+								" . $row['name'] . "
+								</a>
+								";
+							}
+							?>
+							<ul class="dropdown-menu dropdown-menu-right" style="left=-43px; min-width:205px">
+								<li class="ml-3">
+								<i class="far fa-user mr-1"></i> <?php echo $row['name'] . " ( " . $row['user_id'] . " )";  ?>
+									<br>
+									<i class="fas fa-graduation-cap"></i> Vai trò : <?php echo $row['role_name']; ?>
+
+								</li>
+
+								<li class="dropdown-divider"></li>
+
+								<li class="ml-3">
+									<i class="fas fa-edit"></i>
+									<a href="/QAweb/change_user.php?id=<?php echo $id?>">Cập nhập thông tin</a>
+								</li>
+								<li class='ml-3'>
+									<i class='fas fa-history mr-1'></i> 
+									<a href="/QAweb">Tư cách người dùng</a>
+								</li>
+
+
+								<li class="dropdown-divider"></li>
+
+								<li class="ml-3">
+								<i class="fas fa-sign-out-alt mr-1"></i>
+								<a href="/QAweb/logout.php">Đăng xuất</a>
+								</li>
+							</ul>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
 		</div>
+	</div>
 
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar" style="background-color:#333333;color:white;height:50px">
-	        MENU
-	    </button>
-	 
-	    <div class="collapse navbar-collapse" id="collapsibleNavbar">
-	        <ul class="navbar-nav ml-auto">
-	            <li class="nav-item m-1">
-	                <a class="nav-link" href="#" data-toggle="collapse" data-target="#quanly" style="color:black;font-weight:bold;font-size: 20px">Quản Lý <img src="muiten.png" width="25px"></a>
-	            </li>
-	            <li class="nav-item m-1">
-	                <a class="nav-link" href="#" data-toggle="collapse" data-target="#user"><img src="user.png" width="30px"> <img src="muiten.png" width="25px"></a>
-	            </li>
-	        </ul>
-	    </div>
-	</nav>
+	<!--end header-->
 
-	<div class= "container-fluid collapse" id="quanly">
-         <div class= "row justify-content-end">
-            <div class ="col-md-5" style="background-color:#007fff">
-            	<div class="card m-3" style="float:left;">
-            		<img src="user.png" width="80px">	
-            	</div>
-            	<div class="card m-3" style="background-color:#e5e5e5">
-            		<div class="row">
-            			<div class="col-md-9">
-            				<img src="user.png" width="30px"> Phạm Đức Long (17020866)
-            			</div>
-            		</div>
-
-            		<div class="row">
-            			<div class="col-md-9">
-            				<img src="mu.png" width="30px"> Chức vụ : Chủ Tọa
-            			</div>
-            		</div>
-
-            		<div class="row">
-            			<div class="col-md-9">
-            				<img src="dauhoi.png" width="30px"> Tổng số câu hỏi : 0
-            			</div>
-            		</div>
-
-            		<div class="row">
-            			<div class="col-md-9">
-            				<img src="donghonguoc.png" width="30px"> Lần cuối đặt câu hỏi : N/A
-            			</div>
-            		</div>
-
-            		<div class="row">
-            			<div class="col-md-9">
-            				<img src="donghocat.png" width="30px"> Câu hỏi chưa trả lời : 0
-            			</div>
-            		</div>
-            	</div>
-
-            	
-            		<div>Danh sách câu hỏi hiển thị</div>
-      
-            </div>
-         </div>
-    </div>
 	
-	<div class= "container-fluid collapse" id="user">
-         <div class= "row justify-content-end">
-            <div class ="col-md-3" style="background-color:#00ff00">
-               <div>Phạm Đức Long</div>
-               <br>
-               <div>Chức vụ : Chủ tọa</div>
-               <br>
-               <div>
-               		<a href="SuaThongTinNguoiDung.php">
-               			Cập nhập thông tin
-               		</a>
-           	   </div>
-               <br>
-               <div>
-               		<a href="#">
-               			Đăng xuất
-               		</a>
-           	   </div>
-            </div>
-         </div>
-    </div>
-
     <div class="card">
     	<div class="card-body">
     		<div style="background-color:#999999;width:100%;height:800px;">
-
-    			<nav class="navbar navbar-expand-sm" style="background-color:gray;width:100%;">
-					<button class="navbar-toggler" type="button" data-toggle="modal" data-target="#taophienhoidap" style="background-color:#333333;color:white;height:50px">
-				        Tạo phiên
-				    </button>
-	 
-				    <div class="collapse navbar-collapse">
-				        <ul class="navbar-nav mr-auto" style="background-color:#00ffff">
-				            <li class="nav-item m-1">
-				                <a class="nav-link" href="#" data-toggle="modal" data-target="#taophienhoidap" style="color:black;font-weight:bold;font-size:20px;width:304px;text-align:right;">Tạo phiên hỏi đáp <img src="danhsachqa.png" width="50px"></a>
-				            </li>
-				        </ul>
-				    </div>
-
-				    <ul class="navbar-nav ml-auto">
-			           <li class="nav-item">
-			              <input type="text" class="form-control" placeholder="Search">
-			           </li>
-			           <li class="nav-item">
-			              <button type="submit"><img src="timkiem.png" width="30px"></button>
-			           </li>
-        		    </ul>
-				</nav>
-
-
-				<div class="modal" id="taophienhoidap">
-			         <div class="modal-dialog">
-			            <div class="modal-content">
-			               <div class="modal-header" style="background-color:#07eaea">
-			                  <h4 class="modal-title" style="text-align:center;">TẠO PHIÊN HỎI ĐÁP</h4>
-			                  <button class="close" data-dismiss="modal">&times;</button>
-			               </div>
-			       
-			               <div class="modal-body">
-			                  <label>MÔ TẢ :</label>
-			                  <input type="text" class="form-control">
-			                  <label>NỘI DUNG :</label>
-			                  <textarea class="form-control" rows="5" id="comment"></textarea>
-			               </div>
-			              
-			               <div class="modal-footer">
-			               	  Thời gian đóng : <input type="date">
-			                  <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
-			                  <button type="button" class="btn btn-primary">Xác nhận</button>
-			               </div>
-			            </div>
-			         </div>
-      		    </div>
-
 
 	    		<nav class="navbar navbar-expand-sm" style="background-color:gray;width:100%;">
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#danhsachphienhoidap" style="background-color:#333333;color:white;height:50px">
@@ -170,26 +120,41 @@
 				    <div class="collapse navbar-collapse">
 				        <ul class="navbar-nav mr-auto" style="background-color:#00ffff">
 				            <li class="nav-item m-1">
-				                <a class="nav-link" href="#" data-toggle="collapse" data-target="#danhsachphienhoidap" style="color:black;font-weight:bold;font-size: 20px">Danh sách phiên hỏi đáp <img src="danhsachqa.png" width="50px"></a>
+				                <a class="nav-link" href="#" data-toggle="collapse" data-target="#danhsachphienhoidap" style="color:black;font-weight:bold;font-size: 20px">Danh sách phiên hỏi đáp <img src="/QAweb/img/danhsachqa.png" width="50px"></a>
+				            </li>
+				        </ul>
+					</div>
+					
+					<button class="navbar-toggler" type="button" data-toggle="modal" 
+						data-target="#taophienhoidap" style="background-color:#333333;color:white;height:50px">
+				        Tạo phiên
+				    </button>
+	 
+				    <div class="collapse navbar-collapse">
+				        <ul class="navbar-nav ml-auto" style="background-color:#00ffff">
+				            <li class="nav-item m-1">
+								<a class="nav-link" href="#" data-toggle="modal" data-target="#taophienhoidap" 
+								style="color:black;font-weight:bold;font-size:20px;width:304px;text-align:right;">Tạo phiên hỏi đáp <img src="/QAweb/img/danhsachqa.png" width="50px"></a>
 				            </li>
 				        </ul>
 				    </div>
 
-				    <button class="navbar-toggler" type="button" data-toggle="modal" data-target="#taophienkhaosat" style="background-color:#333333;color:white;height:50px">
+					<!-- <button class="navbar-toggler" type="button" data-toggle="modal" 
+						data-target="#taophienkhaosat" style="background-color:#333333;color:white;height:50px">
 				        Khảo sát
 				    </button>
 	 
 				    <div class="collapse navbar-collapse">
 				        <ul class="navbar-nav ml-auto" style="background-color:#00ffff">
 				            <li class="nav-item m-1">
-				                <a class="nav-link" href="#" data-toggle="modal" data-target="#taophienkhaosat" style="color:black;font-weight:bold;font-size: 20px">Tạo phiên khảo sát <img src="danhsachqa.png" width="50px"></a>
+				                <a class="nav-link" href="#" data-toggle="modal" data-target="#taophienkhaosat" style="color:black;font-weight:bold;font-size: 20px">Tạo phiên khảo sát <img src="/QAweb/img/danhsachqa.png" width="50px"></a>
 				            </li>
 				        </ul>
-				    </div>
+				    </div> -->
 
 				</nav>
 
-				<div class="modal" id="taophienkhaosat">
+				<!-- <div class="modal" id="taophienkhaosat">
 			         <div class="modal-dialog">
 			            <div class="modal-content">
 			               <div class="modal-header" style="background-color:#07eaea">
@@ -221,40 +186,70 @@
 			               </div>
 			            </div>
 			         </div>
+      		    </div> -->
+				  <div class="modal" id="taophienhoidap">
+			         <div class="modal-dialog">
+			            <div class="modal-content">
+			               <div class="modal-header" style="background-color:#07eaea">
+			                  <h4 class="modal-title" style="text-align:center;">TẠO PHIÊN HỎI ĐÁP</h4>
+			                  <button class="close" data-dismiss="modal">&times;</button>
+			               </div>
+			       			<form action="" method="POST">
+								<div class="modal-body">
+									<label>TIÊU ĐỀ:</label>
+									<input name="title_in" type="text" class="form-control">
+									<label>MÔ TẢ:</label>
+									<textarea name="describe_in" class="form-control" rows="5" id="comment"></textarea>
+									<label> Thời gian bắt đầu: </label> 
+									<input name="time_start_in" type="datetime-local"> <br>
+									<label> Thời gian kết thúc: </label>
+									<input name="time_end_in" type="datetime-local"> <br>
+									<label>Mat khau: </label>
+									<input name="pass_in" type="password"> 
+								</div>
+								
+								<div class="modal-footer">
+									<button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+									<button type="submit" class="btn btn-primary" name="btn_create_ss">Xác nhận</button>
+								</div>
+			       			</form>
+			            </div>
+			         </div>
       		    </div>
-				
 				
 
 				<div class= "container-fluid collapse" id="danhsachphienhoidap">
 			        <div class= "row justify-content-start">
 			            <div class ="col-md-3" style="background-color:#00ff00">
-			               <div onclick="loadphien();">
-				               	<a href="#">
+			               <div>
+				               	<a href="index.php?status=action">
 				               		Phiên hỏi đáp đang hoạt động
 				               	</a>
 			           	   </div>
 			               <br>
-			               <div onclick="loadphien();">
-				               	<a href="#">
-				               		Phiên hỏi đáp đã đóng
+			               <div >
+				               	<a href="index.php?status=open">
+								   Phiên hỏi đáp chuan bi mo
 				               	</a>
 			           	   </div>
 			               <br>
-			               <div onclick="loadphien();">
-				               	<a href="#">
-				               		Tất cả câu hỏi
+			               <div >
+				               	<a href="index.php?status=close">
+								   Phiên hỏi đáp đa dong
 				               	</a>
 			           	   </div>
 			            </div>
 			        </div>
-    			</div>
-
-    			<div id="saukhichonphien"></div>
-    			<h5 align="center">Không có nội dung nào</h5>
-
-    		</div>
-    	</div>
-    </div>
+				</div>
+				
+				<?php include("show_session.php");?>
+			</div>
+			
+		</div>
+		
+	</div>
+	
+	
 </body>
 <script type="text/javascript">
 	function loadphien(){
