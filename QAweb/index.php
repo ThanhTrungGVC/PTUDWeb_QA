@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 include "database/connect.php";
 ?>
@@ -26,8 +27,6 @@ include "database/connect.php";
 	<script type="text/javascript" src="jcarousel/jquery.jcarousel.min.js"></script>
 	<script type="text/javascript" src="jcarousel/jcarousel.responsive.js"></script>
 </head>
-</head>
-
 <body>
 	<!-- <nav class="navbar navbar-expand-sm" style="background-color:#00ffff">
 		<div class="navbar-nav navbar-expand">
@@ -49,6 +48,7 @@ include "database/connect.php";
 	        <ul class="navbar-nav ml-auto">
 	            <li class="nav-item m-1">
                     <?php
+
 					if (!isset($_SESSION['us_id'])) {
 						echo "<a class='nav-link' href='login.php' > Dang Nhap </a>";
 					} else {
@@ -62,6 +62,7 @@ include "database/connect.php";
                                         <img src='/QAweb/img/user.png' width='30px'>
                                 " . $row['name'] . "</a>
                             ";
+
 					}
 					?>
 	            </li>
@@ -161,6 +162,7 @@ include "database/connect.php";
 
 
 	<!-- <div class= "container-fluid collapse" id="quanly">
+
          <div class= "row justify-content-end">
             <div class ="col-md-3" style="background-color:#007fff">
             	<div class="card m-3" style="float:left;">
@@ -169,7 +171,9 @@ include "database/connect.php";
             	<div class="card m-3" style="background-color:#e5e5e5">
             		<div class="row">
             			<div class="col-md-9">
+
             				<img src="/QAweb/img/user.png" width="30px"> <?php echo $row['name'] . " ( " . $row['user_id'] . " )";  ?>
+
             			</div>
             		</div>
 
@@ -185,7 +189,6 @@ include "database/connect.php";
 							<a href="SuaThongTinNguoiDung.php">Cập nhập thông tin</a>
             			</div>
 					</div>
-                    
 
             		<div class="row">
             			<div class="col-md-9">
@@ -195,6 +198,7 @@ include "database/connect.php";
             	</div>
             </div>
          </div>
+
 	</div> -->
 	
 	<div class="card">
@@ -263,6 +267,7 @@ include "database/connect.php";
 			background-image: -webkit-gradient(linear, left bottom, left top, from(#5ee7df), to(#b490ca));
 		}
 	</style>
+
 
 
 </body>

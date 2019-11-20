@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
 	<title>Question-Answer</title>
 
@@ -141,5 +140,4 @@
 		</div>
 	</div>
 </body>
-
 </html>

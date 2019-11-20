@@ -71,6 +71,7 @@
             // }
 
             # delete question
+
             if (isset($_GET['q_id'])) {
                 $q_ids = $_GET['q_id'];
                 $sql_del_q = "DELETE FROM questions WHERE question_id = '$q_ids'";
@@ -110,6 +111,7 @@
             //     //     header("Location: survey_detail.php?ss_id=$ss_ids&survey_id=$survey_id");
             //     // }
             // }
+
 
         #}
 ?>
