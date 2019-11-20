@@ -24,7 +24,10 @@
 	$sql_q = "SELECT q.question_id, u.name, u.user_id, u.role_id, q.create_date, q.content,
 					(SELECT COUNT(*) FROM comments c WHERE c.question_id = q.question_id) AS 'num_cmt'
 				FROM questions q
-				INNER JOIN users u ON q.user_id = u.user_id  AND  q.ss_id = '$session_ids'";
+
+                INNER JOIN users u ON q.user_id = u.user_id  AND  q.ss_id = '$session_ids'
+                ORDER BY q.question_id DESC";
+
 	$result_q = $conn->query($sql_q);
 
 	# get info

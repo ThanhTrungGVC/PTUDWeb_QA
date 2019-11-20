@@ -27,6 +27,50 @@
                 }
             }
 
+            # delete questions
+            // if (isset($_GET['ss_id'])) {
+            //     $ss_id1= $_GET['ss_id'];
+            //     $sql_ss = "DELETE FROM `sessions` WHERE `ss_id`=$ss_id1";
+            //     $result_ss = $conn->query($sql_ss);
+
+            //     $sql_q = "SELECT * FROM `questions` WHERE `ss_id`= $ss_id1";
+            //     $result = $conn->query($sql_q);
+            //     $row = $result->fetch_assoc();
+            //     $question_id = $row['question_id'];
+
+            //     $sql_sur = "SELECT * FROM `survey` WHERE `ss_id`";
+            //     $result1 = $conn->query($sql_sur);
+            //     $row1 = $result1->fetch_assoc();
+            //     $survey_id = $row1['survey_id'];
+            //     # delete questions
+            //     $sql_del_q = "DELETE FROM questions WHERE `ss_id`=$ss_id1";
+            //     $result2 = $conn->query($sql_del_q);
+            //     # delete comment
+            //     $sql_del_cmt = "DELETE FROM comments WHERE `question_id`=$question_id";
+            //     $result2 = $conn->query($sql_del_cmt);
+            //     # delete answwers
+            //     $sql_del_ans = "DELETE FROM `answers` WHERE `question_id`=$question_id";
+            //     $result4 = $conn->query($sql_del_ans);
+            //     # delete survey
+            //     $sql_del_sur = "DELETE FROM `survey` WHERE `ss_id`=$ss_id1";
+            //     $result5 = $conn->query($sql_del_sur);
+            //     # delete survey_detail
+            //     $sql_del_sur_detail = "DELETE FROM `survey_detail` WHERE `survey_id`=$survey_id";
+            //     $result6 = $conn->query($sql_del_sur_detail);
+
+            //     echo '<script>
+            //             var result = confirm("Bạn chắc chắn muốn xóa phiên?");
+            //                 if(result)  {
+            //                     alert("Xóa thành công!");
+            //                 } else {
+            //                     alert("Không xóa!");
+            //                 }
+            //             if(result){  window.location = "/QAweb/"};
+            //             </script>';
+                
+            // }
+
+            # delete question
 
             if (isset($_GET['q_id'])) {
                 $q_ids = $_GET['q_id'];
@@ -40,5 +84,34 @@
                 }
                 
             }
+            #delete survey
+            if (isset($_GET['survey_id'])) {
+                $survey_id = $_GET['survey_id'];
+                $sql1 = "DELETE FROM survey WHERE survey_id = '$survey_id'";
+                $result1 = $conn->query($sql1);
+                $sql2 ="DELETE FROM `survey_detail` WHERE survey_id = '$survey_id'";
+                $result2 = $conn->query($sql2);
+                if (!$result1) {
+                    die('Error delete comment');
+                } else{
+                    header("Location: survey_session.php?ss_id=$ss_ids");
+                }
+                
+            }
+            
+
+            // if(isset($_GET['choose_id'])){
+            //     $choose_id = $_GET['choose_id'];
+            //     $survey_id = $_GET['survey_id'];
+            //     $sql_o = "DELETE FROM survey_detail WHERE choose_id = '$choose_id'";
+            //     $result_o = $conn->query($sql_o);
+            //     // if (!$result_o) {
+            //     //     die('Error delete comment');
+            //     // } else{
+            //     //     header("Location: survey_detail.php?ss_id=$ss_ids&survey_id=$survey_id");
+            //     // }
+            // }
+
+
         #}
 ?>

@@ -60,16 +60,21 @@ $us_create = $_SESSION['us_id'];
 ## create query
 if (!isset($_GET['status'])) {
 	$sql = "SELECT s.ss_id, s.ss_title, s.ss_describe, u.name, s.create_date, s.create_date, s.time_start, s.time_end, s.ss_pass, s.ss_status, (SELECT COUNT(*) FROM questions q WHERE q.ss_id = s.ss_id) AS 'num_qs'
-				FROM sessions s INNER JOIN users u ON s.user_id = u.user_id WHERE u.user_id = '$us_create'";
+				FROM sessions s INNER JOIN users u ON s.user_id = u.user_id WHERE u.user_id = '$us_create'
+				ORDER BY s.create_date DESC";
 } elseif ($_GET['status'] == 'action') {
 	$sql = "SELECT s.ss_id, s.ss_title, s.ss_describe, u.name, s.create_date, s.create_date, s.time_start, s.time_end, s.ss_pass, s.ss_status, (SELECT COUNT(*) FROM questions q WHERE q.ss_id = s.ss_id) AS 'num_qs'
-				FROM sessions s INNER JOIN users u ON s.user_id = u.user_id WHERE s.ss_status = 'action' AND u.user_id = '$us_create'";
+				FROM sessions s INNER JOIN users u ON s.user_id = u.user_id WHERE s.ss_status = 'action' AND u.user_id = '$us_create'
+				ORDER BY s.create_date DESC";
 } elseif ($_GET['status'] == 'open') {
 	$sql = "SELECT s.ss_id, s.ss_title, s.ss_describe, u.name, s.create_date, s.create_date, s.time_start, s.time_end, s.ss_pass, s.ss_status, (SELECT COUNT(*) FROM questions q WHERE q.ss_id = s.ss_id) AS 'num_qs'
-				FROM sessions s INNER JOIN users u ON s.user_id = u.user_id WHERE s.ss_status = 'open' AND u.user_id = '$us_create'";
+				FROM sessions s INNER JOIN users u ON s.user_id = u.user_id WHERE s.ss_status = 'open' AND u.user_id = '$us_create'
+				ORDER BY s.create_date DESC";
 } elseif ($_GET['status'] == 'close') {
 	$sql = "SELECT s.ss_id, s.ss_title, s.ss_describe, u.name, s.create_date, s.create_date, s.time_start, s.time_end, s.ss_pass, s.ss_status, (SELECT COUNT(*) FROM questions q WHERE q.ss_id = s.ss_id) AS 'num_qs'
-				FROM sessions s INNER JOIN users u ON s.user_id = u.user_id WHERE s.ss_status = 'close' AND u.user_id = '$us_create'";
+				FROM sessions s INNER JOIN users u ON s.user_id = u.user_id WHERE s.ss_status = 'close' AND u.user_id = '$us_create'
+				ORDER BY s.create_date DESC";
+
 }
 
 $result = $conn->query($sql);
