@@ -3,6 +3,7 @@
 include_once __DIR__ . "/database/connect.php";
 
 $id = $_GET['id'];
+
 $sql = "SELECT * FROM `users` WHERE user_id = $id";
 $result = $conn->query($sql);
 $row = $result->fetch_assoc();
@@ -12,22 +13,19 @@ if(isset($_POST['submit'])){
 	$name = $_POST['name'];
 	$password = $_POST['password'];
 	$sql1 = "UPDATE `users` SET `user_pass`='$password',`name`='$name' WHERE user_id = $id";
-	?>
-	<script>
-			var result = confirm("Bạn muốn lưu lại thay đổi không?");
-              	if(result)  {
-					<?php $result1 = $conn->query($sql1);?>
-                	alert('Thay đổi thành công!');
-              	} else {
-              	}
-			if(result){  window.location = '/QAweb/'};
-	</script>
-	<?php
-	
-
-	
+	$result1 = $conn->query($sql1);
+	if ($result1) {
+		echo "<script type='text/javascript'>
+				window.location='/QAweb/change_user.php?id=$id';
+				alert('Thay đổi thành công!');
+				</script>";
+	} else {
+		echo "<script type='text/javascript'>
+				window.location='/QAweb/change_user.php?id=$id';
+				alert('Thay đổi thất bại!');
+				</script>";
+	}
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -70,7 +68,7 @@ if(isset($_POST['submit'])){
 		<div class="container">
 			<div class="d-flex justify-content-center">
 				<div class="col-sm-5">
-					<img src="https://colorlib.com/etc/lf/Login_v1/images/img-01.png" alt="IMG">
+					<img src="/QAweb/img/img-02.png" alt="IMG">
 				</div>
 				<div class="col-sm-4">
 					<form action="" method="post" class="needs-validation" novalidate>
@@ -125,7 +123,7 @@ if(isset($_POST['submit'])){
 								</div>
 							</div>
 						</div>
-						<button class="btn btn-primary" type="submit" name="submit">ĐỔI THÔNG TIN</button>
+						<button class="btn btn-primary" type="submit" name="submit" onClick="return confirm('Bạn chắc chắn muốn thay đổi?');">ĐỔI THÔNG TIN</button>
 					</form>
 				</div>
 			</div>
@@ -156,13 +154,13 @@ if(isset($_POST['submit'])){
 			}, false);
 		})();
 		function myFunction() {
-  var x = document.getElementById("password");
-  if (x.type === "password") {
-    x.type = "text";
-  } else {
-    x.type = "password";
-  }
-}
+			var x = document.getElementById("password");
+			if (x.type === "password") {
+				x.type = "text";
+			} else {
+				x.type = "password";
+			}
+		}
 
 		// function testConfirmDialog() {
 
