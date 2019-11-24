@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<title>Question-Answer</title>
 
@@ -108,7 +109,7 @@
 						<div class="row m-2">
 							<div class="col-md-3 col-sm-5 p-0 m-auto" style="font-weight:bold;">Tài Khoản : </div>
 							<div class="col-md-9 col-sm-6 p-0 pr-5">
-								<input name="email" type="text" class="form-control" placeholder="Email">
+								<input name="email" type="text" class="form-control" placeholder="Email" pattern="" title="Nhập đầy đủ thông tin" required>
 							</div>
 						</div>
 
@@ -118,7 +119,7 @@
 						<div class="row m-2">
 							<div class="col-md-3 col-sm-5 p-0 m-auto" style="font-weight:bold;">Mật Khẩu : </div>
 							<div class="col-md-9 col-sm-6 p-0 pr-5">
-								<input name="password" type="password" class="form-control" placeholder="Password">
+								<input name="password" type="password" class="form-control" placeholder="Password" pattern="" title="Nhập đầy đủ thông tin" required>
 							</div>
 						</div>
 
@@ -140,4 +141,5 @@
 		</div>
 	</div>
 </body>
+
 </html>

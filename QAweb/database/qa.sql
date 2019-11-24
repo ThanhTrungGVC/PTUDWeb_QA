@@ -3,10 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
-
--- Thời gian đã tạo: Th10 10, 2019 lúc 11:53 AM
--- Phiên bản máy phục vụ: 10.4.6-MariaDB-log
-
+-- Thời gian đã tạo: Th10 24, 2019 lúc 07:52 AM
+-- Phiên bản máy phục vụ: 10.4.6-MariaDB
 -- Phiên bản PHP: 7.3.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -38,9 +36,7 @@ CREATE TABLE IF NOT EXISTS `answers` (
   `question_id` int(11) NOT NULL,
   `cmt_id` int(11) NOT NULL,
   PRIMARY KEY (`answer_id`)
-
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
-
 
 --
 -- Đang đổ dữ liệu cho bảng `answers`
@@ -48,7 +44,6 @@ CREATE TABLE IF NOT EXISTS `answers` (
 
 INSERT INTO `answers` (`answer_id`, `question_id`, `cmt_id`) VALUES
 (1, 2, 2),
-
 (3, 1, 8);
 
 -- --------------------------------------------------------
@@ -66,7 +61,6 @@ CREATE TABLE IF NOT EXISTS `comments` (
   `create_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `likes` int(11) NOT NULL,
   PRIMARY KEY (`cmt_id`)
-
 ) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
 
 --
@@ -74,13 +68,11 @@ CREATE TABLE IF NOT EXISTS `comments` (
 --
 
 INSERT INTO `comments` (`cmt_id`, `question_id`, `user_id`, `content`, `create_date`, `likes`) VALUES
-
 (2, 2, 3, 'Trên website môn học và trên internet', '2019-11-09 09:02:39', 0),
 (15, 2, 6, 'w3school', '2019-11-09 09:24:11', 0),
 (16, 4, 6, 'Làm web thôi', '2019-11-09 09:38:40', 0),
 (17, 6, 6, '2222', '2019-11-09 09:40:04', 0),
 (18, 1, 3, 'đam mê', '2019-11-09 09:42:18', 0);
-
 
 -- --------------------------------------------------------
 
@@ -97,9 +89,7 @@ CREATE TABLE IF NOT EXISTS `questions` (
   `create_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `likes` int(11) NOT NULL,
   PRIMARY KEY (`question_id`)
-
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
-
 
 --
 -- Đang đổ dữ liệu cho bảng `questions`
@@ -113,7 +103,6 @@ INSERT INTO `questions` (`question_id`, `ss_id`, `user_id`, `content`, `create_d
 (5, 13, 5, 'Môn học này bao nhiêu tín chỉ? Thời gian thực hành như thế nào?', '2019-11-09 09:00:18', 0),
 (7, 10, 7, 'hiihih', '2019-11-09 09:44:47', 0),
 (12, 9, 7, 'Cần làm gì để học tốt?', '2019-11-09 10:49:13', 0);
-
 
 -- --------------------------------------------------------
 
@@ -156,21 +145,18 @@ CREATE TABLE IF NOT EXISTS `sessions` (
   `ss_pass` varchar(30) COLLATE utf8_vietnamese_ci DEFAULT NULL,
   `ss_status` varchar(15) COLLATE utf8_vietnamese_ci NOT NULL,
   PRIMARY KEY (`ss_id`)
-
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
-
 
 --
 -- Đang đổ dữ liệu cho bảng `sessions`
 --
 
 INSERT INTO `sessions` (`ss_id`, `user_id`, `ss_title`, `ss_describe`, `create_date`, `time_start`, `time_end`, `ss_pass`, `ss_status`) VALUES
-(9, 3, 'Phát triển ứng dụng Web', 'int3306', '2019-11-09 08:59:04', '2019-11-01 07:05:00', '2019-11-12 00:00:00', '', 'action'),
+(9, 3, 'Phát triển ứng dụng Web', 'int3306', '2019-11-24 06:51:35', '2019-11-01 07:05:00', '2019-11-30 00:00:00', '', 'action'),
 (10, 3, 'Hệ thống thông tin', 'Phát triển hệ thống thông tin', '2019-11-02 11:33:42', '2019-11-02 17:00:00', '2019-11-02 17:30:00', 'httt', 'close'),
 (11, 3, 'Tiêu đề 1', 'hihii', '2019-11-09 08:59:27', '2019-11-02 21:33:00', '2019-11-02 21:35:00', '12345', 'close'),
 (12, 3, 'lập trình ', 'học lại', '2019-11-09 08:59:32', '2019-11-05 14:22:00', '2019-11-05 15:04:00', '123456', 'close'),
 (13, 5, 'Phát triển ứng dụng Web - INT3306 UET', 'môn phát triển ứng dụng Web của Trường Đại học Công nghệ - Đại học Quốc gia Hà Nội', '2019-11-09 08:59:37', '2019-11-05 19:00:00', '2019-11-05 19:50:00', 'uet', 'close');
-
 
 -- --------------------------------------------------------
 
@@ -221,9 +207,11 @@ INSERT INTO `survey_detail` (`choose_id`, `survey_id`, `choose_title`, `num_choo
 (64, 77, '313', 0),
 (65, 78, 'đasad', 0),
 (66, 78, 'đâsdas', 0),
-(67, 78, 'ddddd', 0);
-
-
+(67, 78, 'ddddd', 0),
+(68, 79, 'fgfdhfd', 0),
+(69, 79, 'hfdhdfhd', 0),
+(70, 79, 'hfdhdfhdf', 0),
+(71, 79, 'hdfhdf', 0);
 
 -- --------------------------------------------------------
 
@@ -254,6 +242,21 @@ INSERT INTO `users` (`user_id`, `role_id`, `user_names`, `user_pass`, `name`, `c
 (6, 3, '', '', 'Người dùng ẩn danh', '2019-11-09 00:00:00', 'action'),
 (7, 3, 'hs1', '1234', 'Nguyễn Văn Thành', '2019-11-09 00:00:00', 'action'),
 (8, 3, 'hs2', '1234', 'Nguyễn Văn Trung', '2019-11-09 00:00:00', 'action');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `user_choose`
+--
+
+DROP TABLE IF EXISTS `user_choose`;
+CREATE TABLE IF NOT EXISTS `user_choose` (
+  `stt` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `survey_id` int(11) NOT NULL,
+  `choose_id` int(11) NOT NULL,
+  PRIMARY KEY (`stt`)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -31,11 +31,13 @@
 	<!-- <link rel="stylesheet" href="bootstrap/css/bootstrap.css"> -->
 	<link rel="stylesheet" href="/QAweb/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="/QAweb/fontawesome/css/all.css">
+	<link rel="stylesheet" href="/QAweb/MDB/css/mdb.css">
 	<!-- Javascript -->
 	<script src="/QAweb/js/jquery-3.4.1.js"></script>
 	<script src="/QAweb/js/popper.min.js"></script>
 	<!-- <script src="bootstrap/js/bootstrap.js"></script> -->
 	<script src="/QAweb/bootstrap/js/bootstrap.min.js"></script>
+	<script src="/QAweb/MDB/js/mdb.js"></script>
 	<script type="text/javascript" src="/QAweb/fontawesome/js/all.js"></script>
 	<script type="text/javascript" src="/QAweb/jcarousel/jquery.jcarousel.min.js"></script>
 	<script type="text/javascript" src="/QAweb/jcarousel/jcarousel.responsive.js"></script>
@@ -45,61 +47,92 @@
 <body>
 	<?php include "show_ss_detail.php"; ?>
 	<div class="container mb-5">
-		<nav class="navbar navbar-expand-sm" style="background-color:#00ffff">
-			<div class="d-flex float-left">
-				<div class="d-inline-block p-2 m-auto mr-sm-3">
-					<a href="index.php"><img src="/QAweb/img/logouet.png" width="60px"></a>
-				</div>
-				<div class="d-inline-block text-center m-auto">
-					<div>
-						<a href="index.php" class="text-dark">
-							<h2 class="d-block mb-0">
-								QA-UET
-							</h2>
-							<h6 class="d-block mb-0">
-								<small>
-								Nơi trao đổi của mọi người
-
-								</small>
-							</h6>
-						</a>
-					</div>
-				</div>
-			</div>
-
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar" style="background-color:#333333;color:white;height:50px">
-				MENU
-			</button>
-
-			<?php
-			$id_tc = $_SESSION['us_id'];
-			$sql_us = "SELECT * FROM users u
-					INNER JOIN roles r ON u.role_id = r.role_id
-					WHERE user_id = '$id_tc'";
-			$result_us = $conn->query($sql_us);
-			$row_us = $result_us->fetch_assoc();
-			?>
-
-			<div class="collapse navbar-collapse" id="collapsibleNavbar">
-				<ul class="navbar-nav d-flex ml-auto">
-					<li class="nav-item m-1">
-						<a class="nav-link" href="#" data-toggle="collapse" data-target="#quanly" style="color:black;font-weight:bold;font-size: 20px">
-							<img src="/QAweb/img/user.png" width="30px">
-							<?php
-							echo $row_us['name'];
-							?>
-						</a>
-						<div class="text-primary">
-							<div class="pl-2">
-								<i class="fas fa-long-arrow-alt-left mb-1"></i>
-								<a href="/QAweb/teacher/">Quay tro lai</a>
+		<div class="rare-wind-gradient">
+			<div class="container mx-sm-auto">
+				<div class="row">
+					<div class="d-flex float-left">
+						<div class="d-inline-block p-2 pl-3 m-auto mr-sm-3">
+							<a href="index.php"><img src="/QAweb/img/logouet.png" width="60px"></a>
+						</div>
+						<div class="d-inline-block text-center m-auto">
+							<div>
+								<a href="index.php" class="text-dark">
+									<h2 class="d-block mb-0">
+										QA-UET
+									</h2>
+									<h6 class="d-block mb-0">
+										<small>
+											Nơi trao đổi của mọi người
+										</small>
+									</h6>
+								</a>
 							</div>
 						</div>
-					</li>
-				</ul>
+					</div>
 
+					<div class="col-sm-9 p-0 float-right mr-0 align-self-center">
+						<div class="float-right">
+							<div class="dropdown">
+								<?php
+								if (!isset($_SESSION['us_id'])) {
+									echo "<a class='nav-link deep-blue-gradient hover_color' href='login.php' style='color: #0b52d4;'> Đăng nhập </a>";
+								} else {
+									$id = $_SESSION['us_id'];
+									$sql7 = "SELECT u.name, u.user_id, r.role_name, u.role_id FROM users u INNER JOIN roles r ON r.role_id = u.role_id WHERE u.user_id = '$id'";
+									$result7 = $conn->query($sql7);
+									$row7 = $result7->fetch_assoc();
+									echo "
+									<i class='fas fa-user'></i>
+									<a class='dropdown-toggle' id='dropdownMenuButton' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+									" . $row7['name'] . "
+									</a>
+									";
+								}
+								?>
+								<ul class="dropdown-menu dropdown-menu-right" style="left=-43px; min-width:205px">
+									<li class="ml-3">
+										<i class="far fa-user mr-1"></i> <?php echo $row7['name'] . " ( " . $row7['user_id'] . " )";  ?>
+										<br>
+										<i class="fas fa-graduation-cap"></i> Vai trò : <?php echo $row7['role_name']; ?>
+
+									</li>
+
+									<li class="dropdown-divider"></li>
+
+									<li class="ml-3">
+										<i class="fas fa-edit"></i>
+										<a href="change_user.php?id=<?php echo $id?>">Cập nhập thông tin</a>
+										<!-- <a href="SuaThongTinNguoiDung.php" data-toggle="modal" data-target="#suathongtin">Cập nhập thông tin</a> -->
+									</li>
+
+									<?php
+									if ($row7['role_id'] <= 2) {
+										echo "
+										<li class='ml-3'>
+										<i class='fas fa-history mr-1'></i> 
+														<a href='/QAweb/teacher/'>Tư cách giao vien</a>
+										</li>
+										";
+									}
+									?>
+
+									<li class="dropdown-divider"></li>
+
+									<li class="ml-3">
+										<i class="fas fa-sign-out-alt mr-1"></i>
+										<a href="/QAweb/logout.php">Đăng xuất</a>
+									</li>
+								</ul>
+
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
 			</div>
-		</nav>
+		</div>
 		<!-- Thông tin của 1 phiên -->
 		<div class="winter-neva-gradient mt-4">
 			<div class="pl-3 pt-2">
@@ -219,7 +252,7 @@
 				while ($row_q = $result_q->fetch_assoc()) {
 					?>
 					<div class="container-fluid question">
-						<div class="winter-neva-gradient">
+						<div class="winter-neva-gradient pt-2">
 							<!-- Phần câu hỏi -->
 							<h5 class="m-3 pt-3 qs_i">
 								<b <?php if ($row_q['role_id'] == 2) echo "style='color:#FFBF00;'"; ?>>Câu hỏi <?php echo $i . ": " . $row_q['content']; ?></b>
