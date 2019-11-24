@@ -1,0 +1,69 @@
+.chart {
+    margin: 0;
+    padding: -0px;
+}
+
+.skillsBox {
+    position: relative;
+    width: 600px;
+    padding: 50px;
+    margin: auto;
+}
+
+.skillsBox h1 {
+    margin: 0 0 20px;
+    padding: 0;
+    color: black;
+}
+
+.skills {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.skills h2 {
+    margin: 5px 0 0;
+    padding: 0;
+    font-size: 18px;
+    color: blue;
+    text-transform: uppercase;
+}
+
+.progress {
+    width: 100%;
+    height: 22px;
+    border-radius: 10px;
+    border: 1px solid #424df4f0;
+    text-align: center;
+    line-height: 20px;
+    color: #fff;
+    overflow: hidden;
+}
+
+.progress .percent {
+    padding-right: 10px;
+    border-right: 1px solid #424df4f0;
+    animation: animate .5s linear infinite;
+    background: linear-gradient(45deg, rgba(0, 0, 0, 0.15)25%, #424df4f0 25%, #424df4f0 50%, rgba(0, 0, 0, 0.15)50%, rgba(0, 0, 0, 0.15)75%, #424df4f0 75%, #424df4f0);
+    background-size: 33px 33px;
+}
+
+.progress .text-chart {
+    font-size: 17px;
+    color: #fff;
+    padding-left: 3px;
+    padding-right: 6px;
+    background: #4c56f4;
+    border-top-right-radius: 9px;
+    border-bottom-right-radius: 9px;
+}
+
+@keyframes animate {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 30px 0;
+    }
+}

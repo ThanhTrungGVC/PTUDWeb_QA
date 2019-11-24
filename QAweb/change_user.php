@@ -12,16 +12,17 @@ if(isset($_POST['submit'])){
 	$name = $_POST['name'];
 	$password = $_POST['password'];
 	$sql1 = "UPDATE `users` SET `user_pass`='$password',`name`='$name' WHERE user_id = $id";
-	$result1 = $conn->query($sql1);
-	echo '<script>
+	?>
+	<script>
 			var result = confirm("Bạn muốn lưu lại thay đổi không?");
               	if(result)  {
-                	alert("Thay đổi thành công!");
+					<?php $result1 = $conn->query($sql1);?>
+                	alert('Thay đổi thành công!');
               	} else {
-                  	alert("Không đổi!");
               	}
-			if(result){  window.location = "/QAweb/"};
-			</script>';
+			if(result){  window.location = '/QAweb/'};
+	</script>
+	<?php
 	
 
 	

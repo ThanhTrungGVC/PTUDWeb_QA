@@ -16,6 +16,9 @@ $ok = $row2['max_num'];
 
 $sql1 = "SELECT `choose_id`, `survey_id`, `choose_title`, `num_choose`, `num_choose`*100.0/SUM(`num_choose`) OVER() AS number FROM `survey_detail` WHERE `survey_id` = $survey_id";
 $result1 = $conn->query($sql1);
+
+$chart = $conn->query($sql1);
+
 ?>
 
 <!DOCTYPE html>
@@ -29,6 +32,7 @@ $result1 = $conn->query($sql1);
     <link rel="stylesheet" type="text/css" href="/QAweb/fontawesome/css/all.css">
     <link rel="stylesheet" href="/QAweb/MDB/css/mdb.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/stylechart.css">
     <!-- Javascript -->
     <script src="/QAweb/js/jquery-3.4.1.js"></script>
     <script src="/QAweb/js/popper.min.js"></script>
@@ -108,35 +112,22 @@ $result1 = $conn->query($sql1);
             </div>
         </div>
 
-        <div class="my-4" style="display: grid;">
-            <div style="display: contents;">
-                <form action="">
-                    <?php
-                    $i=1;
-                    $sql3 = "SELECT `choose_id`, `survey_id`, `choose_title`, `num_choose` FROM `survey_detail` WHERE `survey_id` = $survey_id";
-                    $result3 =$conn->query($sql3);
-                    while ($row3 = $result3->fetch_assoc()) {
-                        ?>
-                        <div class="form-check d-flex">
-                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios<?php echo $i?>" value="option1" checked>
-                            <div>
-                            <label class="form-check-label" for="exampleRadios<?php echo $i?>">
-                                <?php echo $row3['choose_title'];?>
-                            </label>
-                            <div class="d-inline"><?php echo $row3['num_choose']?></div>
-                            <!-- <a href="#" onclick="return confirm('Bạn có chắc chắn muốn xóa lựa chọn');">Xóa</a> -->
-                        </div>
-                        
+        <div class="chart">
+            <div class="skillsBox">
+                <h1><?php echo $row['survey_describe']?></h1>
+                <?php while($chartArr = $chart->fetch_array()){?>
+                <div class="skills">
+                    <div class="progress">
+                        <div class="percent" style="width: <?php echo $chartArr['number']?>%;"></div>
+                        <div class="text-chart"><?php echo $chartArr['num_choose']?></div>
                     </div>
-                    <?php
-                    $i++;
-                        
-                    }
-                    ?>
-                </form>
-
+                    <h2><?php echo $chartArr['choose_title']?></h2>
+                </div>
+                <?php
+                }?>
             </div>
         </div>
+
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
             <div class="panel panel-primary">
                 <div class="panel-heading" role="tab" id="headingOne">
@@ -147,7 +138,7 @@ $result1 = $conn->query($sql1);
                     </h4>
                 </div>
                 <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                    <div class="panel-body mb-5" style="border: 1px solid; overflow: auto;height:390px; margin: 6px; border-radius: 7px;">
+                    <div class="panel-body mb-5" style="height:390px; margin: 6px; border-radius: 7px;">
                         <div id="chartContainer" style="height: 300px; width: 100%;"></div>
                     </div>
                 </div>

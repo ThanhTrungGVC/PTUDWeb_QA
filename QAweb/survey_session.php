@@ -15,7 +15,9 @@
 	<!-- <link rel="stylesheet" href="bootstrap/css/bootstrap.css"> -->
 	<link rel="stylesheet" href="/QAweb/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="/QAweb/fontawesome/css/all.css">
+	<link rel="stylesheet" href="/QAweb/MDB/css/mdb.css">
 	<!-- Javascript -->
+	<script src="/QAweb/MDB/js/mdb.js"></script>
 	<script src="/QAweb/js/jquery-3.4.1.js"></script>
 	<script src="/QAweb/js/popper.min.js"></script>
 	<script src="/QAweb/bootstrap/js/bootstrap.min.js"></script>
@@ -256,33 +258,68 @@
 							</h5>
 						</div>
 					</div>
-					<!--chọn lựa chọn-->
-					<div id="khaosat" class="modal fade" role="dialog">
-						<div class="modal-dialog modal-lg">
-							<!-- Modal content-->
+
+					<!-- Modal: modalPoll -->
+					<div class="modal fade" id="khaosat" role="dialog">
+						<div class="modal-dialog modal-notify modal-info" role="document">
 							<div class="modal-content">
-								<div class="modal-header">
-									<h4 class="modal-title">Khảo sát <?php echo $i . ": " . $row1['survey_describe']; ?></h4>
-									<button type="button" class="close" data-dismiss="modal">&times;</button>
-								</div>
-								<div class="modal-body">
-									<div class="row">
-										<div class="container">
-											<form method="post" action="/QAweb/teacher/create_survey.php?ss_id=<?= $row['ss_id'] ?>">
-												<div class="modal-body">
-													<p>Các lựa chọn:</p>
-												</div>
-												<div class="container-fluid">
-													gyudsgfsdguigfi
-												</div>
-												<input type="submit" name="submit" class="btn btn-primary" value="OK" />
-											</form>
-										</div>
+								<form action="check_choose.php" method="POST">
+									<!--Header-->
+									<div class="modal-header">
+										<p class="heading lead">Khảo sát <?php echo $i; ?>
+										</p>
+
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true" class="white-text">×</span>
+										</button>
 									</div>
-								</div>
+
+									<!--Body-->
+									<div class="modal-body">
+										<div class="text-center">
+										<i class="far fa-file-alt fa-4x mb-3 animated rotateIn"></i>
+										<p>
+											<strong>Ý kiến của bạn về vấn đề</strong>
+										</p>
+										<p><?php echo $row1['survey_describe']; ?></p>
+										</div>
+
+										<hr style="height: 1px; background: #0000001a;">
+
+										<!-- Radio -->
+										<p class="text-center">
+										<strong>Lựa chọn cho bạn</strong>
+										</p>
+										<?php
+										$survey_id = $row1['survey_id'];
+										$sql_choose = "SELECT * FROM `survey_detail` WHERE `survey_id` = $survey_id";
+										$result_choose = $conn->query($sql_choose);
+										while($row3 = $result_choose->fetch_array()){?>
+										
+											<div class="custom-control custom-radio">
+												<input type="radio" class="custom-control-input" id="<?php echo $row3['choose_id'];?>" name="check" value="<?php echo $row3['choose_title'];?>">
+												<label class="custom-control-label m-0 mx-2"  style="word-break: break-all; width: auto; text-align: inherit; min-height: auto;" for="<?php echo $row3['choose_id'];?>"><?php echo $row3['choose_title'];?></label>
+											</div>
+										<?php
+										}
+										?>
+										
+										<!-- Radio -->
+
+									</div>
+
+									<!--Footer-->
+									<div class="modal-footer justify-content-center">
+										<button type="submit" name="submit" class="btn btn-primary waves-effect waves-light">Send
+										<i class="fa fa-paper-plane ml-1"></i>
+										</button>
+										<a type="button" name="close" class="btn btn-outline-primary waves-effect" data-dismiss="modal">Cancel</a>
+									</div>
+								</form>
 							</div>
 						</div>
 					</div>
+					<!-- Modal: modalPoll -->
 					<!--end chọn lựa chọn-->
 				<?php
 					$i++;

@@ -1,5 +1,4 @@
 <?php
-
 ## start session
 session_start();
 
@@ -184,7 +183,6 @@ include "database/connect.php";
 							</ul>
             			</div>
 					";
-
 		}
 		?>
 
@@ -195,7 +193,6 @@ include "database/connect.php";
 		</ul>
 
 	</nav>
-
 	<!-- show form add question -->
 	<div class="modal" id="datcauhoi">
 		<form method="POST" action="/QAweb/create_question.php?ss_id=<?php echo $_GET['ss_id']; ?>">
@@ -205,6 +202,7 @@ include "database/connect.php";
 						<h4 class="modal-title" style="text-align:center;">THÊM MỚI CÂU HỎI</h4>
 						<button class="close" data-dismiss="modal">&times;</button>
 					</div>
+
 					<div class="modal-body">
 						<label>Nhập nội dung câu hỏi :</label>
 						<input type="text" class="form-control" name="ip_add_question">
@@ -309,4 +307,3 @@ include "database/connect.php";
 </body>
 
 </html>
-
