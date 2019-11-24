@@ -206,8 +206,12 @@ INSERT INTO `survey_detail` (`choose_id`, `survey_id`, `choose_title`, `num_choo
 (63, 77, '121', 0),
 (64, 77, '313', 0),
 (65, 78, 'đasad', 0),
-(66, 78, 'đâsdas', 1),
-(67, 78, 'ddddd', 0);
+(66, 78, 'đâsdas', 0),
+(67, 78, 'ddddd', 0),
+(68, 79, 'fgfdhfd', 0),
+(69, 79, 'hfdhdfhd', 0),
+(70, 79, 'hfdhdfhdf', 0),
+(71, 79, 'hdfhdf', 0);
 
 -- --------------------------------------------------------
 
@@ -249,16 +253,10 @@ DROP TABLE IF EXISTS `user_choose`;
 CREATE TABLE IF NOT EXISTS `user_choose` (
   `stt` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
+  `survey_id` int(11) NOT NULL,
   `choose_id` int(11) NOT NULL,
   PRIMARY KEY (`stt`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
-
---
--- Đang đổ dữ liệu cho bảng `user_choose`
---
-
-INSERT INTO `user_choose` (`stt`, `user_id`, `choose_id`) VALUES
-(8, 7, 66);
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
