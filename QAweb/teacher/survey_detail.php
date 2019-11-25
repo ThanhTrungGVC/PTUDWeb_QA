@@ -101,7 +101,7 @@ $chart = $conn->query($sql1);
 
 									<li class="ml-3">
 										<i class="fas fa-edit"></i>
-										<a href="change_user.php?id=<?php echo $id?>">Cập nhập thông tin</a>
+										<a href="/QAweb/change_user.php?id=<?php echo $id?>">Cập nhập thông tin</a>
 										<!-- <a href="SuaThongTinNguoiDung.php" data-toggle="modal" data-target="#suathongtin">Cập nhập thông tin</a> -->
 									</li>
 

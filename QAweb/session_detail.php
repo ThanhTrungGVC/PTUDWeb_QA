@@ -223,7 +223,7 @@ include "database/connect.php";
 			<?php
 			$i = 1;
 			while ($row_q = $result_q->fetch_assoc()) { ?>
-				<div class="col-md-12" style="background-color:#e5e5e5">
+				<div class="col-md-12" style="background-color:#e5e5e5;border-bottom: 1px outset;">
 					<div class="card m-3" style="float:left;">
 						<img src="/QAweb/img/user.png" width="90px">
 					</div>
@@ -239,12 +239,41 @@ include "database/connect.php";
 										?>
 									<a href="delete.php?q_id=<?php echo $row_q['question_id']; ?>" onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</a>
 									<span> - </span>
-									<a href='#'>Sửa </a>
+									<a href='' data-toggle='modal' data-target='#mySession<?php echo $row_q['question_id'];?>'>Sửa </a>
 							<?php
 									}
 								}
 								?>
 						</div>
+						<div id="mySession<?php echo $row_q['question_id']?>" class="modal fade" tabindex="-6" role="dialog">
+											<div class="modal-dialog modal-lg">
+												<!-- Modal content-->
+												<div class="modal-content aqua-gradient">
+													<div class="modal-body">
+														<div class="row">
+															<div class="container">
+																<form method="post" action="/QAweb/edit_session.php">
+																	<div>
+																		<div class="modal-header p-0 p-1">
+																		<h5>Sửa nội dung:</h5>
+																		<button type="button" class="close" data-dismiss="modal">&times;</button>
+																		</div>
+																		<div class="input-group">
+																			<input type="text" class="form-control" name="question_content" value="<?php echo $row_q['content']; ?>" required>
+																			<input type="hidden" class="form-control" name="question_id" value="<?php echo $row_q['question_id']; ?>" required>
+																			<input type="hidden" class="form-control" name="ss_id" value="<?php echo $_GET['ss_id']; ?>" required>
+																			<div class="input-group-append">
+																				<input type="submit" name="edit_question1" class="btn btn-primary m-0" style="padding: 9px;" value="Sửa" />
+																			</div>
+																		</div>
+																	</div>
+																</form>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
 					</div>
 					<?php
 						$qs_ids = $row_q['question_id'];
@@ -258,7 +287,7 @@ include "database/connect.php";
 							?>
 						<div class="col-md-11 px-4" style="float: right;margin-top: -10px;">
 
-							<div class="comment_c <?php if ($row_c['cmt_id'] == $row_c['DA']) echo 'Da'; ?>">
+							<div class="comment_c <?php if ($row_c['cmt_id'] == $row_c['DA']) echo 'Da'; ?> mb-2">
 								<b class="text-primary c_left"><?php echo $row_c['name']; ?></b>
 								<p class="mb-1 c_content c_right" <?php if ($row_c['role_id'] == 2) echo "style='color:#B43104; font-weight:bolder;'"; ?>>
 									<?php echo $row_c['content']; ?>
@@ -272,12 +301,43 @@ include "database/connect.php";
 												?>
 										<a href='delete.php?cmt_id=<?php echo $row_c['cmt_id']; ?>' style='float: left;margin-left: 3%'>Xóa câu trả lời </a>
 										<span>-</span>
-										<a href='#'> Chỉnh sửa câu trả lời </a>
+										<a  href='' data-toggle='modal' data-target='#myModal<?php echo $row_c['cmt_id'];?>'> Chỉnh sửa câu trả lời </a>
 								<?php
 											}
 										}
 										?>
 							</div>
+							<!--MODAL-->
+							<div id="myModal<?php echo $row_c['cmt_id']?>" class="modal fade" tabindex="-6" role="dialog">
+								<div class="modal-dialog modal-lg">
+									<!-- Modal content-->
+									<div class="modal-content aqua-gradient">
+										<div class="modal-body">
+											<div class="row">
+												<div class="container">
+													<form method="post" action="/QAweb/edit_session.php">
+														<div>
+															<div class="modal-header p-0 p-1">
+															<h5>Sửa nội dung:</h5>
+															<button type="button" class="close" data-dismiss="modal">&times;</button>
+															</div>
+															<div class="input-group">
+																<input type="text" class="form-control" name="comment_content" value="<?php echo $row_c['content']; ?>" required>
+																<input type="hidden" class="form-control" name="comment_id" value="<?php echo $row_c['cmt_id']; ?>" required>
+																<input type="hidden" class="form-control" name="ss_id" value="<?php echo $_GET['ss_id']; ?>" required>
+																<div class="input-group-append">
+																	<input type="submit" name="edit_comment1" class="btn btn-primary m-0" style="padding: 9px;" value="Sửa" />
+																</div>
+															</div>
+														</div>
+													</form>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!--END MODAL-->
 						</div>
 					<?php
 						}
@@ -286,8 +346,7 @@ include "database/connect.php";
 					<?php
 						if ($row['ss_status'] == 'action') {
 							?>
-						<br>
-						<div class='col-md-11 float-right px-4 mt-2'>
+						<div class='col-md-11 float-right px-4 mb-3'>
 							<form action="add_comment.php?ss_id=<?php echo $_GET['ss_id'] ?>&qs_id=<?php echo $row_q['question_id'] ?>" method='POST'>
 								<div style="margin-right: 115px;">									
 									<input type='text' class='form-control' style='border-radius: 1rem;' name='comment' placeholder='Nhập câu trả lời'>
@@ -295,14 +354,16 @@ include "database/connect.php";
 							</form>
 						</div>
 					<?php
-						}
-						?>
-				</div><?php
-							$i++;
-						}
-						?>
+					}
+					?>
+				</div>
+			<?php
+				$i++;
+			}
+			?>
 		</div>
 	</div>
+	<br>
 
 </body>
 

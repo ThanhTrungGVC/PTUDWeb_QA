@@ -187,7 +187,7 @@
 			            </div>
 			         </div>
       		    </div> -->
-				  <div class="modal" id="taophienhoidap">
+				<div class="modal" id="taophienhoidap">
 			         <div class="modal-dialog">
 			            <div class="modal-content">
 			               <div class="modal-header" style="background-color:#07eaea">
@@ -196,16 +196,22 @@
 			               </div>
 			       			<form action="" method="POST">
 								<div class="modal-body">
-									<label>TIÊU ĐỀ:</label>
-									<input name="title_in" type="text" class="form-control">
-									<label>MÔ TẢ:</label>
-									<textarea name="describe_in" class="form-control" rows="5" id="comment"></textarea>
-									<label> Thời gian bắt đầu: </label> 
-									<input name="time_start_in" type="datetime-local"> <br>
-									<label> Thời gian kết thúc: </label>
-									<input name="time_end_in" type="datetime-local"> <br>
-									<label>Mat khau: </label>
-									<input name="pass_in" type="password"> 
+									<label class="m-0">TIÊU ĐỀ:</label>
+									<input name="title_in" type="text" class="form-control mb-2">
+									<label class="m-0">MÔ TẢ:</label>
+									<textarea name="describe_in" class="form-control mb-3" rows="5" id="comment"></textarea>
+									<label class="m-0"> Thời gian bắt đầu: </label> 
+									<div class="mb-2">
+										<input name="time_start_in" type="datetime-local"> <br>
+									</div>
+									<label class="m-0"> Thời gian kết thúc: </label>
+									<div class="mb-2">
+										<input name="time_end_in" type="datetime-local"> <br>
+									</div>
+									<label class="m-0" class="m-0">Mật khẩu: </label>
+									<div class="mb-2">
+										<input name="pass_in" type="password" style="min-width: 222px;"> 
+									</div>
 								</div>
 								
 								<div class="modal-footer">

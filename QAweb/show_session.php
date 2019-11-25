@@ -92,19 +92,59 @@ if ($result->num_rows > 0) {
 		}
 
 		echo "
-                <div class= 'container-fluid'>
-                    <div class= 'row'>
-                        <div class ='col-md-12' style='background-color:white'>
-                            <div class='card m-3' style='float:left;'></div>
+			<div class= 'container-fluid'>
+				<div class= 'row'>
+					<div class ='col-md-12' style='background-color:white'>
+						<div class='card m-3' style='float:left;'></div>
 
-                            <div class='card m-3'>
-                                <div style='margin-left: 30px;'>
-                                    <p>TÊN PHIÊN: <a href='session_detail.php?ss_id=" . $row['ss_id'] . "' style='text-transform: uppercase;'><strong>" . $row['ss_title'] . "</strong></a></p>
-                                    <p><strong>Người tạo:</strong> " . $row['name'] . "
-                                    <p><strong>Thời gian bắt đầu:</strong> " . $row['time_start'] . " &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <strong>Thời gian kết thúc:</strong> " . $row['time_end'] . "
-                                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <strong>Số câu hỏi:</strong> ". $row['num_qs']."
-                                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <strong>Trạng thái:</strong> " . $stt . "</p>
-                                </div>
+						<div class='card m-3'>
+							<div style='margin-left: 30px;'>
+								<p>TÊN PHIÊN: ";
+		if($row['ss_pass']!=NULL){
+			echo "					<a href='' data-toggle='modal' data-target='#mySession" . $row['ss_id'] . "' style='text-transform: uppercase;'><strong>" . $row['ss_title'] . "</strong></a>";
+		}
+        else{
+			echo "					<a href='session_detail.php?ss_id=" . $row['ss_id'] . "' style='text-transform: uppercase;'><strong>" . $row['ss_title'] . "</strong></a>";
+		}
+		echo"					</p>
+								<p>
+									<strong>Người tạo:</strong> " . $row['name'] . "
+								</p>
+								<p>
+									<strong>Thời gian bắt đầu:</strong> " . $row['time_start'] . " &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 
+									<strong>Thời gian kết thúc:</strong> " . $row['time_end'] . "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 
+									<strong>Số câu hỏi:</strong> ". $row['num_qs']."&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 
+									<strong>Trạng thái:</strong> " . $stt . "
+								</p>
+								<!--MODAL-->
+								<div id='mySession" . $row['ss_id'] . "' class='modal fade' role='dialog'>
+									<div class='modal-dialog modal-dialog-centered'>
+										<!-- Modal content-->
+										<div class='modal-content aqua-gradient'>
+											<div class='modal-body'>
+												<div class='row'>
+													<div class='container'>
+														<form method='post' action='/QAweb/check_pass.php'>
+															<div>
+																<div class='modal-header p-0 p-1'>
+																<h5>Nhập mật khẩu:</h5>
+																</div>
+																<div class='input-group'>
+																	<input type='password' class='form-control' name='password' required>
+																	<input type='hidden' class='form-control' name='ss_id' value='" . $row['ss_id'] . "' required>
+																	<div class='input-group-append'>
+																		<input type='submit' name='edit_comment1' class='btn btn-primary m-0' style='padding: 9px;' value='OK' />
+																	</div>
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!--END MODAL-->
                             </div>
                         </div>
                     </div>
@@ -114,7 +154,8 @@ if ($result->num_rows > 0) {
                     <div class= 'row'>
                         <div class ='col-md-12' style='background-color:#e5e5e5;height:40px'></div>
                     </div>
-                </div>
+				</div>
+			</div>
             ";
 		$i++;
 	}
