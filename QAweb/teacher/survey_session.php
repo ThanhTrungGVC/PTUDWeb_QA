@@ -143,6 +143,9 @@
 							<?php echo $row['ss_describe']; ?>
 						</h6>
 					</div>
+					<h5>
+						<b>Số lượng khảo sát: </b> <?php echo $row['num_sur']; ?>
+					</h5>
 				</div>
 				<div class="col-sm-4">
 					<div>
@@ -159,7 +162,7 @@
 						<div class='col-sm-4'>
 							<!-- Nút lựa chọn -->
 							<div class='input-group-btn mt-2'>
-								<button style='margin-bottom:5px;' type='button' data-toggle='modal' data-target='#taophienkhaosat' class='btn btn-primary aqua-gradient btn-sm m-0'><i class='fa fa-plus' aria-hidden='true'</i></i> Tao phien khao sat</button>
+								<button style='margin-bottom:5px;' type='button' data-toggle='modal' data-target='#taophienkhaosat' class='btn btn-primary aqua-gradient btn-sm m-0'><i class='fa fa-plus' aria-hidden='true'</i></i> Tạo khảo sát</button>
 							</div>
 						</div>";
 				}?>
@@ -260,7 +263,7 @@
 		<!-- Các câu hỏi có trong phiên -->
 		<div class="mt-4">
 			<div class="pl-3 pt-2 text-center">
-				<h2>Danh sách các phien khao sat</h2>
+				<h2>Danh sách các khảo sát</h2>
 			</div>
 			<div>
 				<hr class="my-2" style="height:1px;">
@@ -274,17 +277,29 @@
 							<!-- Phần câu hỏi -->
 							<h5 class="m-3 pt-3 qs_i">
 								<b style='color:#FFBF00'>
-									<a href="survey_detail.php?ss_id=<?php echo $_GET['ss_id']; ?>&survey_id=<?php echo $row1['survey_id']; ?>">Khao sat <?php echo $i . ": " . $row1['survey_describe']; ?></a>
+									<a href="survey_detail.php?ss_id=<?php echo $_GET['ss_id']; ?>&survey_id=<?php echo $row1['survey_id']; ?>">Khảo sát <?php echo $i . ": " . $row1['survey_describe']; ?></a>
 								</b>
 								<div>
 									<h6>
 										<small class="text-muted">
-											<p style="display: inline" class="mb-1">Người tạo: <?php echo $row['name']; ?></p>
-											<!--Tên người đặt câu hỏi -->
-											<p>Thời gian tạo: <?php echo $row1['start_time_survey']; ?></p><!-- Thời gian đặt câu hỏi -->
+											<i>
+												<p style="display: inline" class="mb-1">Người tạo: <?php echo $row['name']; ?></p>
+												<!--Tên người đặt câu hỏi -->
+												<p class="m-0">Thời gian mở: <?php echo $row1['start_time_survey']; ?></p><!-- Thời gian đặt câu hỏi -->
+												<?php if ($row1['survey_status']!="action") {?>
+													<p class="mb-1">Thời gian đóng: <?php echo $row1['close_time_survey']; ?></p>
+												<?php
+												}?>
+											</i>
+											<span style="color:black;">Trạng thái hoạt động: <?php if($row1['survey_status']=="action"){echo "Đang hoạt động";}else{echo "Đã đóng";} ?></span>
 										</small>
-										<small class="text-muted">
-											<a href="delete.php?ss_id=<?php echo $_GET['ss_id']; ?>&survey_id=<?php echo $row1['survey_id']; ?>" onclick="return confirm('Bạn có chắc chắn muốn xóa câu hỏi');"> Xóa</a>
+										<small class="text-muted d-block mt-2">
+											<a href="delete.php?ss_id=<?php echo $_GET['ss_id']; ?>&survey_id=<?php echo $row1['survey_id']; ?>" onclick="return confirm('Bạn có chắc chắn muốn xóa khảo sát');"> Xóa</a>
+											<?php if ($row1['survey_status']=="action") {?>
+											<span>-</span>
+											<a href="/QAweb/close.php?ss_id=<?php echo $_GET['ss_id']; ?>&survey_id=<?php echo $row1['survey_id']; ?>" onclick="return confirm('Bạn có chắc chắn muốn đóng khảo sát');"> Đóng</a>
+											<?php
+											}?>
 										</small>
 									</h6>
 								</div>

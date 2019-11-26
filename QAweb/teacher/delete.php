@@ -28,47 +28,51 @@
             }
 
             # delete questions
-            // if (isset($_GET['ss_id'])) {
-            //     $ss_id1= $_GET['ss_id'];
-            //     $sql_ss = "DELETE FROM `sessions` WHERE `ss_id`=$ss_id1";
-            //     $result_ss = $conn->query($sql_ss);
+            if (isset($_GET['ss_id']) && !isset($_GET['q_id']) && !isset($_GET['survey_id']) && !isset($_GET['cmt_id'])) {
+                echo "jfidsjisdsdnvdsj";
+                $ss_id1= $_GET['ss_id'];
+                $sql_ss = "DELETE FROM `sessions` WHERE `ss_id`=$ss_id1";
+                $result_ss = $conn->query($sql_ss);
 
-            //     $sql_q = "SELECT * FROM `questions` WHERE `ss_id`= $ss_id1";
-            //     $result = $conn->query($sql_q);
-            //     $row = $result->fetch_assoc();
-            //     $question_id = $row['question_id'];
+                $sql_q = "SELECT * FROM `questions` WHERE `ss_id`= $ss_id1";
+                $result = $conn->query($sql_q);
+                $row = $result->fetch_assoc();
+                $question_id = $row['question_id'];
 
-            //     $sql_sur = "SELECT * FROM `survey` WHERE `ss_id`";
-            //     $result1 = $conn->query($sql_sur);
-            //     $row1 = $result1->fetch_assoc();
-            //     $survey_id = $row1['survey_id'];
-            //     # delete questions
-            //     $sql_del_q = "DELETE FROM questions WHERE `ss_id`=$ss_id1";
-            //     $result2 = $conn->query($sql_del_q);
-            //     # delete comment
-            //     $sql_del_cmt = "DELETE FROM comments WHERE `question_id`=$question_id";
-            //     $result2 = $conn->query($sql_del_cmt);
-            //     # delete answwers
-            //     $sql_del_ans = "DELETE FROM `answers` WHERE `question_id`=$question_id";
-            //     $result4 = $conn->query($sql_del_ans);
-            //     # delete survey
-            //     $sql_del_sur = "DELETE FROM `survey` WHERE `ss_id`=$ss_id1";
-            //     $result5 = $conn->query($sql_del_sur);
-            //     # delete survey_detail
-            //     $sql_del_sur_detail = "DELETE FROM `survey_detail` WHERE `survey_id`=$survey_id";
-            //     $result6 = $conn->query($sql_del_sur_detail);
+                $sql_sur = "SELECT * FROM `survey` WHERE `ss_id`";
+                $result1 = $conn->query($sql_sur);
+                $row1 = $result1->fetch_assoc();
+                $survey_id = $row1['survey_id'];
+                # delete questions
+                $sql_del_q = "DELETE FROM questions WHERE `ss_id`=$ss_id1";
+                $result2 = $conn->query($sql_del_q);
+                # delete comment
+                $sql_del_cmt = "DELETE FROM comments WHERE `question_id`=$question_id";
+                $result2 = $conn->query($sql_del_cmt);
+                # delete answwers
+                $sql_del_ans = "DELETE FROM `answers` WHERE `question_id`=$question_id";
+                $result4 = $conn->query($sql_del_ans);
+                # delete survey
+                $sql_del_sur = "DELETE FROM `survey` WHERE `ss_id`=$ss_id1";
+                $result5 = $conn->query($sql_del_sur);
+                # delete survey_detail
+                $sql_del_sur_detail = "DELETE FROM `survey_detail` WHERE `survey_id`=$survey_id";
+                $result6 = $conn->query($sql_del_sur_detail);
 
-            //     echo '<script>
-            //             var result = confirm("Bạn chắc chắn muốn xóa phiên?");
-            //                 if(result)  {
-            //                     alert("Xóa thành công!");
-            //                 } else {
-            //                     alert("Không xóa!");
-            //                 }
-            //             if(result){  window.location = "/QAweb/"};
-            //             </script>';
+                if ($result1) {
+                    echo "<script type='text/javascript'>
+                            window.location='/QAweb/teacher/';
+                            alert('Xóa phiên thành công!');
+                            </script>";
+                } else {
+                    echo "<script type='text/javascript'>
+                            window.location='/QAweb/teacher/';
+                            alert('Xóa phiên thất bại!');
+                            </script>";
+                }
                 
-            // }
+                
+            }
 
             # delete question
             if (isset($_GET['q_id'])) {

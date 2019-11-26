@@ -18,7 +18,13 @@
         if(isset($_SESSION['us_id'])){
             $user_ids = $_SESSION['us_id'];
         }else{
-            $user_ids = 6;   // người dùng ẩn danh
+            $name = $_POST['name'];
+            $sql_hide = "INSERT INTO `users`(`user_id`, `role_id`, `name`, `create_date`, `user_status`) VALUES (NULL,4,'$name','$timestamp','action')";
+            $result_hide = $conn->query($sql_hide);
+            $sql1 = "SELECT `user_id` FROM `users` WHERE `name`='$name'";
+            $result1 = $conn->query($sql1);
+            $row = $result1->fetch_assoc();
+            $user_ids = $row['user_id'];
         }   
 
     # get question id
@@ -46,4 +52,17 @@
         } else{
             header ("Location: session_detail.php?ss_id=$session_ids");
         }
+
+        // if(isset($_POST['submit'])){
+        //     $question_ids = $_GET['qs_id'];
+        //     $session_ids = $_GET['ss_id'];
+        //     $data_cmt = $_POST['comment'];
+        //     $name = $_POST['name'];
+        //     echo "ok";
+            // $sql ="INSERT INTO `users`(`user_id`, `role_id`, `name`, `create_date`, `user_status`) VALUES (NULL,4,'$name','$timestamp','action')";
+            // $result = $conn->query($sql);
+            // $sql1 = "SELECT * FROM `users` WHERE "
+            // $sql = "INSERT INTO comments VALUES (NULL, '$question_ids', '$user_ids', '$data_cmt', '$timestamp', 0)";
+
+        
 ?>

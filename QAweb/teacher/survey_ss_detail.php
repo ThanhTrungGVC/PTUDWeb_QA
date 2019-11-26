@@ -14,7 +14,7 @@
 
     # get info session
     $sql = "SELECT s.ss_id, s.user_id, s.ss_title, s.ss_describe, u.name, s.create_date, s.time_start, s.time_end, s.ss_pass, s.ss_status,
-				(SELECT COUNT(*) FROM survey sv WHERE sv.ss_id = '$session_ids') AS 'num_sv'
+				(SELECT COUNT(*) FROM survey sv WHERE sv.ss_id = '$session_ids') AS 'num_sv',(SELECT COUNT(*) FROM survey WHERE survey.ss_id = '$session_ids') AS 'num_sur'
                 FROM sessions s INNER JOIN users u ON s.user_id = u.user_id WHERE s.ss_id = '$session_ids'";
     $result = $conn->query($sql);
 	$row = $result->fetch_assoc();
