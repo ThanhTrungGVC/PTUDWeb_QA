@@ -85,7 +85,7 @@
 
 									<li class="ml-3">
 										<i class="fas fa-edit"></i>
-										<a href="change_user.php?id=<?php echo $id?>">Cập nhập thông tin</a>
+										<a href="/QAweb/change_user.php?id=<?php echo $id?>">Cập nhập thông tin</a>
 										<!-- <a href="SuaThongTinNguoiDung.php" data-toggle="modal" data-target="#suathongtin">Cập nhập thông tin</a> -->
 									</li>
 
@@ -197,8 +197,8 @@
 			<div class="modal-dialog modal-lg">
 				<!-- Modal content-->
 				<div class="modal-content">
-					<div class="modal-header">
-						<h4 class="modal-title">Phien khao sat</h4>
+					<div class="modal-header aqua-gradient">
+						<h4 class="modal-title">Phiên khảo sát</h4>
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
 					<div class="modal-body">
@@ -206,15 +206,15 @@
 							<div class="container">
 								<form method="post" action="/QAweb/teacher/create_survey.php?ss_id=<?= $row['ss_id'] ?>">
 									<div class="modal-body">
-										<p>Nhập nội dung khao sat :</p>
-										<input type="text" class="form-control" name="content">
+										<h5>Nhập nội dung khảo sát:</h5>
+										<input type="text" class="form-control" name="content" required>
 										<div id="option" class="mx-4">
 											<div class="fieldGroup">
 												<div class="input-group mb-2">
-													<input type="text" name="options[]" class="form-control" style="border-radius: 20px;" placeholder="Them lua chon">
-													<div>
-														<a href="javascript:void(0)" class="btn btn-danger remove" style="border-radius: 20px;">
-															<i class="far fa-trash-alt"></i> Xoa
+													<input type="text" name="options[]" class="form-control" style="border-radius: 18px 0px 0px 18px;" placeholder="Them lua chon" required>
+													<div class="input-group-append">
+														<a class="btn btn-sm btn-danger m-auto remove" style="font-size: 15px; border-radius: 0px 18px 18px 0px;">
+															<i class="fa fa-minus"></i>
 														</a>
 													</div>
 												</div>
@@ -224,29 +224,31 @@
 										<div class="form-group fieldGroup">
 											<div class="input-group">
 												<div>
-													<a href="javascript:void(0)" class="btn btn-success addMore">
-														<i class="fas fa-plus"></i> Them lua chon</a>
+													<a href="javascript:void(0)" class="btn btn-success addMore m-0">
+														<i class="fas fa-plus"></i><p class="d-inline ml-1">Thêm</p>
+													</a>
 												</div>
 											</div>
 										</div>
 									</div>
+									<hr style="height:1px;">
 
-
-									<input type="submit" name="submit" class="btn btn-primary" value="TAO KHAO SAT" />
+									<div class="float-right">
+										<input type="submit" name="submit" class="btn btn-primary m-0" value="TẠO KHẢO SÁT" />
+										<a type="button" name="close" class="btn btn-outline-primary waves-effect" data-dismiss="modal">Cancel</a>
+									</div>
 								</form>
 								<!-- add input option-->
 								<div class="form-group fieldGroupCopy" style="display: none;">
 									<div class="input-group mb-2">
-										<input type="text" name="options[]" class="form-control" style="border-radius: 20px;" placeholder="Them lua chon" />
-										<div>
-											<a href="javascript:void(0)" class="btn btn-danger remove" style="border-radius: 20px;">
-												<i class="far fa-trash-alt"></i> Xoa
+										<input type="text" name="options[]" class="form-control" style="border-radius: 18px 0px 0px 18px;" placeholder="Them lua chon" required>
+										<div class="input-group-append">
+											<a class="btn btn-sm btn-danger m-auto remove" style="font-size: 15px; border-radius: 0px 18px 18px 0px;">
+												<i class="fa fa-minus"></i>
 											</a>
 										</div>
 									</div>
 								</div>
-
-
 							</div>
 						</div>
 					</div>

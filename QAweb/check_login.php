@@ -65,11 +65,17 @@
 				}
 			} else {  // false: account banning
 				# TODO: baning account
-				echo "Account is banning. Try again!";
+				echo "<script>
+					window.location='/QAweb/login.php';
+					result = alert('Account is banning. Try again!');
+				</script>";
 			}
 		}else{	// false: incorrect info account
 			# TODO: re-input
-			echo "Thông tin tài khoản hoặc mật khẩu không chính xác!";
+			echo "<script>
+					window.location='/QAweb/login.php';
+					result = alert('Thông tin tài khoản hoặc mật khẩu không chính xác!');
+				</script>";
 		}
 
 ?>

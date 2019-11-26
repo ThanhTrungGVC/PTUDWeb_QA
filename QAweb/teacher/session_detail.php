@@ -101,7 +101,7 @@
 
 									<li class="ml-3">
 										<i class="fas fa-edit"></i>
-										<a href="change_user.php?id=<?php echo $id?>">Cập nhập thông tin</a>
+										<a href="/QAweb/change_user.php?id=<?php echo $id?>">Cập nhập thông tin</a>
 										<!-- <a href="SuaThongTinNguoiDung.php" data-toggle="modal" data-target="#suathongtin">Cập nhập thông tin</a> -->
 									</li>
 
@@ -110,7 +110,7 @@
 										echo "
 										<li class='ml-3'>
 										<i class='fas fa-history mr-1'></i> 
-														<a href='/QAweb/teacher/'>Tư cách giao vien</a>
+														<a href='/QAweb/teacher/'>Tư cách giao viên</a>
 										</li>
 										";
 									}
@@ -138,7 +138,7 @@
 			<div class="pl-3 pt-2">
 				<h2>Thông tin phiên: <strong><?php echo $row['ss_title']; ?></strong></h2>
 			</div>
-			<hr class="my-2">
+			<hr>
 			<div class="row pl-3 py-2 ">
 				<div class="col-sm-4">
 					<div>
@@ -191,14 +191,18 @@
 					<!-- Nút lựa chọn -->
 					<div>
 						<div class="input-group-btn mt-2 d-inline">
-							<button href="#" class="btn btn-primary aqua-gradient btn-sm m-0" type="submit" role="button">Sửa phiên</button>
+							<button href="#" class="btn btn-primary aqua-gradient btn-sm m-0" type="submit" role='button' data-toggle='modal' data-target='#sua'>Sửa phiên</button>
 						</div>
 						<div class="input-group-btn mt-2 d-inline">
-							<button class="btn btn-primary aqua-gradient btn-sm m-0" type="submit" role="button"><a href='delete.php?ss_id=<?= $row['ss_id'] ?>' class="text-white" style="text-decoration:none">Xóa phiên</a></button>
+							<a href='delete.php?ss_id=<?= $row['ss_id'] ?>'>
+								<button class="btn btn-primary aqua-gradient btn-sm m-0" type="submit" role="button">Xóa phiên</button>
+							</a>
 						</div>
 					</div>
 					<div class="input-group-btn mt-2">
-						<button href="#" class="btn btn-primary aqua-gradient btn-sm m-0" type="submit" role="button"><a href='survey_session.php?ss_id=<?= $row['ss_id'] ?>' class="text-white" style="text-decoration:none">Quản lý khảo sát</a></button>
+						<a href='survey_session.php?ss_id=<?= $row['ss_id'] ?>'>
+							<button href="#" class="btn btn-primary aqua-gradient btn-sm m-0" type="submit" role="button">Quản lý khảo sát</button>
+						</a>
 					</div>
 					<?php if ($row['ss_status'] == 'action') {
 						echo "
@@ -238,6 +242,50 @@
 			</form>
 		</div>
 
+		<!-- hiện form sửa thông tin phiên  -->
+		<div class="modal" id="sua">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header" style="background-color:#07eaea">
+						<h4 class="modal-title" style="text-align:center;">TẠO PHIÊN HỎI ĐÁP</h4>
+						<button class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<form action="/QAweb/edit_session.php" method="POST">
+						<div class="modal-body">
+							<label>TIÊU ĐỀ:</label>
+							<input name="title_in" type="text" class="form-control" value="<?php echo $row['ss_title']; ?>" disabled>
+							<input type="hidden" name="id" value="<?php echo $row['ss_id']; ?>">
+							<label>MÔ TẢ:</label>
+							<textarea name="describe_in" class="form-control mb-3" rows="5" id="comment"><?php echo $row['ss_describe']; ?></textarea>
+							<label> Thời gian bắt đầu: </label>
+							<div>
+								<input name="time_start_in" type="datetime-local" value="<?php $start = $row['time_start'];
+								$start = str_replace(' ', 'T', $start);
+								echo $start;?>" min="<?php date_default_timezone_set('Asia/Ho_Chi_Minh');
+								$timestamp = date('Y-m-d H:i');$timestamp = str_replace(' ', 'T', $timestamp); echo $timestamp;?>"><br>
+							</div>
+							<label> Thời gian kết thúc: </label>
+							<div>
+								<input name="time_end_in" type="datetime-local" value="<?php $end = $row['time_end'];
+								$end = str_replace(' ', 'T', $end);
+								echo $end;?>" min="<?php date_default_timezone_set('Asia/Ho_Chi_Minh');
+								$timestamp = date('Y-m-d H:i');$timestamp = str_replace(' ', 'T', $timestamp); echo $timestamp;?>"><br>
+							</div>
+							<label>Mật khẩu: </label>
+							<div>
+								<input name="pass_in" type="text" style="min-width: 222px;" value="<?php echo $row['ss_pass'];?>">
+							</div> 
+						</div>
+						
+						<div class="modal-footer">
+							<button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+							<button type="submit" class="btn btn-primary" name="btn_create_ss">Xác nhận</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<!-- End hiện form sửa thông tin phiên  -->
 
 		<!-- Các câu hỏi có trong phiên -->
 		<div class="mt-4">
@@ -245,7 +293,7 @@
 				<h2>Danh sách các câu hỏi</h2>
 			</div>
 			<div>
-				<hr class="my-2">
+				<hr>
 				<!--Câu hỏi 1-->
 				<?php
 				$i = 1;
@@ -269,10 +317,41 @@
 											<?php
 												$us_ids = $_SESSION['us_id'];
 												if ($row_q['user_id'] == $us_ids) {
-													echo "<span> - </span><a href='#'>Sửa </a>";
+													echo "<span> - </span><a href='' data-toggle='modal' data-target='#mySession".$row_q['question_id']."'>Sửa </a>";
 												}
 												?>
 										</small>
+										<!--MODAL-->
+										<div id="mySession<?php echo $row_q['question_id']?>" class="modal fade" tabindex="-6" role="dialog">
+											<div class="modal-dialog modal-lg">
+												<!-- Modal content-->
+												<div class="modal-content aqua-gradient">
+													<div class="modal-body">
+														<div class="row">
+															<div class="container">
+																<form method="post" action="/QAweb/edit_session.php">
+																	<div>
+																		<div class="modal-header p-0 p-1">
+																		<h5>Sửa nội dung:</h5>
+																		<button type="button" class="close" data-dismiss="modal">&times;</button>
+																		</div>
+																		<div class="input-group">
+																			<input type="text" class="form-control" name="question_content" value="<?php echo $row_q['content']; ?>" required>
+																			<input type="hidden" class="form-control" name="question_id" value="<?php echo $row_q['question_id']; ?>" required>
+																			<input type="hidden" class="form-control" name="ss_id" value="<?php echo $_GET['ss_id']; ?>" required>
+																			<div class="input-group-append">
+																				<input type="submit" name="edit_question" class="btn btn-primary m-0" style="padding: 9px;" value="Sửa" />
+																			</div>
+																		</div>
+																	</div>
+																</form>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!--END MODAL-->
 									</h6>
 								</div>
 
@@ -295,14 +374,14 @@
 										<div class="comment_c <?php if ($row_c['cmt_id'] == $row_c['DA']) echo 'Da'; ?>">
 											<b class="text-primary c_left"><?php echo $row_c['name']; ?></b>
 											<p class="mb-1 c_content c_right" <?php if ($row_c['role_id'] == 2) echo "style='color:#B43104; font-weight:bolder;'"; ?>>
-												<?php echo $row_c['content']; ?><?php echo $row_c['cmt_id']; ?>
+												<?php echo $row_c['content']; ?>
 											</p>
 										</div>
 										<div>
 											<h6>
 												<small class="d-inline-block text-muted">
 													<?php if ($_SESSION['us_id'] == $row_c['user_id'])
-																echo "<a href='' data-toggle='modal' data-target='#myModal'>Sửa </a><span> - </span>"; ?>
+																echo "<a href='' data-toggle='modal' data-target='#myModal".$row_c['cmt_id']."'>Sửa </a><span> - </span>"; ?>
 													<a href="delete.php?ss_id=<?php echo $_GET['ss_id']; ?>&cmt_id=<?php echo $row_c['cmt_id']; ?>" onclick="return confirm('Ban co chac chan muon xoa');">Xóa</a>
 													<span> - </span>
 													<?php
@@ -321,26 +400,33 @@
 													<a><?php echo $row_c['create_date']; ?></a>
 												</small>
 												<!--MODAL-->
-												<div class="modal fade" id="myModal" role="dialog">
-													<div class="modal-dialog">
-
+												<div id="myModal<?php echo $row_c['cmt_id']?>" class="modal fade" tabindex="-6" role="dialog">
+													<div class="modal-dialog modal-lg">
 														<!-- Modal content-->
-														<div class="modal-content">
-															<div class="modal-header">
-																<button type="button" class="close" data-dismiss="modal">&times;</button>
-																<h4 class="modal-title">Sửa bình luận</h4>
-															</div>
+														<div class="modal-content aqua-gradient">
 															<div class="modal-body">
-																<form action="">
-																	<input type="text" name="" id="">
-																	<input type="text" name="" id="" value="<?php echo $row_c['cmt_id']; ?>"><?php echo $row_c['cmt_id']; ?>
-																</form>
-															</div>
-															<div class="modal-footer">
-																<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+																<div class="row">
+																	<div class="container">
+																		<form method="post" action="/QAweb/edit_session.php">
+																			<div>
+																				<div class="modal-header p-0 p-1">
+																				<h5>Sửa nội dung:</h5>
+																				<button type="button" class="close" data-dismiss="modal">&times;</button>
+																				</div>
+																				<div class="input-group">
+																					<input type="text" class="form-control" name="comment_content" value="<?php echo $row_c['content']; ?>" required>
+																					<input type="hidden" class="form-control" name="comment_id" value="<?php echo $row_c['cmt_id']; ?>" required>
+																					<input type="hidden" class="form-control" name="ss_id" value="<?php echo $_GET['ss_id']; ?>" required>
+																					<div class="input-group-append">
+																						<input type="submit" name="edit_comment" class="btn btn-primary m-0" style="padding: 9px;" value="Sửa" />
+																					</div>
+																				</div>
+																			</div>
+																		</form>
+																	</div>
+																</div>
 															</div>
 														</div>
-
 													</div>
 												</div>
 												<!--END MODAL-->

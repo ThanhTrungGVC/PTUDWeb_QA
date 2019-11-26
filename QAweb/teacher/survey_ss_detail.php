@@ -27,15 +27,11 @@
     // $result_q = $conn->query($sql_q);
     $sql_survey = "SELECT survey.survey_id, survey.survey_describe, survey.start_time_survey, survey.close_time_survey, survey.survey_status,
                     (SELECT COUNT(*) FROM survey WHERE survey.ss_id = '$session_ids') AS 'num_survey'
-                    FROM survey WHERE survey.ss_id = '$session_ids'";
+                    FROM survey WHERE survey.ss_id = '$session_ids' ORDER BY survey.survey_id DESC";
     $result_survey = $conn->query($sql_survey);
     
-    $sql_survey = "SELECT survey.survey_id, survey.survey_describe, survey.start_time_survey, survey.close_time_survey, survey.survey_status,
-                    (SELECT COUNT(*) FROM survey WHERE survey.ss_id = '$session_ids') AS 'num_survey'
-                    FROM survey WHERE survey.ss_id = '$session_ids'";
     $result_sur = $conn->query($sql_survey);
     $row_sur = $result_sur->fetch_assoc();
-
 	# get info
 	
 ?>
