@@ -23,6 +23,7 @@
 	<script src="/QAweb/bootstrap/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="/QAweb/fontawesome/js/all.js"></script>
 	<link rel="stylesheet" href="/QAweb/css/style.css">
+	<link rel="stylesheet" href="/QAweb/teacher/css/stylechart.css">
 </head>
 
 <body>
@@ -72,7 +73,7 @@
 								?>
 								<ul class="dropdown-menu dropdown-menu-right" style="left=-43px; min-width:205px">
 									<li class="ml-3">
-										<i class="far fa-user mr-1"></i> <?php echo $row7['name'] . " ( " . $row7['user_id'] . " )";  ?>
+										<i class="far fa-user mr-1"></i> <?php echo $row7['name'];  ?>
 										<br>
 										<i class="fas fa-graduation-cap"></i> Vai trò : <?php echo $row7['role_name']; ?>
 
@@ -115,12 +116,20 @@
 			</div>
 		</div>
 		<?php
-			$id_tc = $_SESSION['us_id'];
+			if (isset($_SESSION['us_id'])){
+				$id_tc = $_SESSION['us_id'];
 			$sql_us = "SELECT * FROM users u
 					INNER JOIN roles r ON u.role_id = r.role_id
 					WHERE user_id = '$id_tc'";
 			$result_us = $conn->query($sql_us);
 			$row_us = $result_us->fetch_assoc();
+			}
+			else{
+				$sql_us = "SELECT * FROM `users` WHERE `role_id`='4'";
+				$result_us = $conn->query($sql_us);
+				$row_us = $result_us->fetch_assoc();
+			}
+			
 			?>
 		<!-- Thông tin của 1 phiên -->
 		<div class="winter-neva-gradient mt-2">
@@ -159,7 +168,7 @@
 					</div>
 				</div>
 
-				<?php if ($row['ss_status'] == 'action' && $row_us['role_id'] != 3) {
+				<?php if ($row['ss_status'] == 'action' && $row_us['role_id'] == 2) {
 					echo "
 						<div class='col-sm-4'>
 							<!-- Nút lựa chọn -->
@@ -171,31 +180,6 @@
 
 			</div>
 		</div>
-
-		<!-- show form add question -->
-		<!-- <div class="modal" id="taocauhoi">
-			<form method="POST" action="/QAweb/create_question.php?ss_id=<?php echo $_GET['ss_id']; ?>">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header" style="background-color:#07eaea">
-							<h4 class="modal-title" style="text-align:center;">THÊM MỚI CÂU HỎI</h4>
-							<button class="close" data-dismiss="modal">&times;</button>
-						</div>
-
-						<div class="modal-body">
-							<label>Nhập nội dung câu hỏi :</label>
-							<input type="text" class="form-control" name="ip_add_question">
-							<br>
-						</div>
-
-						<div class="modal-footer">
-							<button type="button" class="btn btn-info">Đóng</button>
-							<button type="submit" class="btn btn-success">Xác nhận</button>
-						</div>
-					</div>
-				</div>
-			</form>
-		</div> -->
 
 		<div id="taophienkhaosat" class="modal fade" role="dialog">
 			<div class="modal-dialog modal-lg">
@@ -276,17 +260,30 @@
 							<!-- Phần câu hỏi -->
 							<h5 class="m-3 pt-3 qs_i">
 								<b style='color:#FFBF00'>
-									<a href="" data-toggle='modal' data-target='#khaosat<?php echo $i;?>'>Khao sat <?php echo $i . ": " . $row1['survey_describe']; ?></a>
+									<?php if ($row1['survey_status']=="action") {?>
+										<a href="" data-toggle='modal' data-target='#khaosat<?php echo $i;?>'>Khảo sát <?php echo $i . ": " . $row1['survey_describe']; ?></a>
+									<?php
+									}else{?>
+										<a href="" data-toggle='modal' data-target='#khaosatdong<?php echo $i;?>'>Khảo sát đóng <?php echo $i . ": " . $row1['survey_describe']; ?></a>
+									<?php
+									}?>
 								</b>
 								<div>
 									<h6>
 										<small class="text-muted">
-											<p style="display: inline" class="mb-1">Người tạo: <?php echo $row['name']; ?></p>
-											<!--Tên người đặt câu hỏi -->
-											<p>Thời gian tạo: <?php echo $row1['start_time_survey']; ?></p><!-- Thời gian đặt câu hỏi -->
+											<i>
+												<p style="display: inline" class="mb-1">Người tạo: <?php echo $row['name']; ?></p>
+												<!--Tên người đặt câu hỏi -->
+												<p class="m-0">Thời gian mở: <?php echo $row1['start_time_survey']; ?></p><!-- Thời gian đặt câu hỏi -->
+												<?php if ($row1['survey_status']!="action") {?>
+													<p class="mb-1">Thời gian đóng: <?php echo $row1['close_time_survey']; ?></p>
+												<?php
+												}?>
+											</i>
+											<span style="color:black;">Trạng thái hoạt động: <?php if($row1['survey_status']=="action"){echo "Đang hoạt động";}else{echo "Đã đóng";} ?></span>
 										</small>
 										<?php
-											if ($row_us['role_id'] != 3) {
+											if ($row_us['role_id'] == 2) {
 												echo "<small class='text-muted'>
 													<a href='delete.php?ss_id=" . $_GET['ss_id'] . "&survey_id=" . $row1['survey_id'] . "' onclick='return confirm('Bạn có chắc chắn muốn xóa câu hỏi');'> Xóa</a>
 												</small>";
@@ -298,7 +295,7 @@
 						</div>
 					</div>
 
-					<!-- Modal: modalPoll -->
+					<!-- Modal: form khảo sát -->
 					<div class="modal fade" id="khaosat<?php echo $i;?>" role="dialog">
 						<div class="modal-dialog modal-notify modal-info" role="document">
 							<div class="modal-content">
@@ -358,7 +355,66 @@
 							</div>
 						</div>
 					</div>
-					<!-- Modal: modalPoll -->
+					<!-- Modal: form khảo sát -->
+					<!-- Modal: form khảo sát đã đóng -->
+					<div class="modal fade" id="khaosatdong<?php echo $i;?>" role="dialog">
+						<div class="modal-dialog modal-notify modal-info" role="document">
+							<div class="modal-content">
+								<form action="check_choose.php" method="POST">
+									<!--Header-->
+									<div class="modal-header">
+										<p class="heading lead">Khảo sát <?php echo $i; ?>
+										</p>
+
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true" class="white-text">×</span>
+										</button>
+									</div>
+
+									<!--Body-->
+									<div class="modal-body">
+										<div class="text-center">
+										<i class="far fa-file-alt fa-4x mb-3 animated rotateIn"></i>
+										<p>
+											<strong>Kết quả khảo sát</strong>
+										</p>
+										<p><?php echo $row1['survey_describe']; ?></p>
+										</div>
+
+										<hr style="height: 1px; background: #0000001a;">
+
+										<!-- Radio -->
+										<div class="chart row">
+											<div class="skillsBox">
+												<?php
+												$sql1 = "SELECT `choose_id`, `survey_id`, `choose_title`, `num_choose`, `num_choose`*100.0/SUM(`num_choose`) OVER() AS number FROM `survey_detail` WHERE `survey_id` = $survey_id";				
+												$chart = $conn->query($sql1); 
+												while($chartArr = $chart->fetch_array()){?>
+												<div class="skills">
+													<div class="progress">
+														<div class="percent" style="width: <?php echo $chartArr['number']?>%;"></div>
+														<div class="text-chart"><?php echo $chartArr['num_choose']?></div>
+													</div>
+													<h2><?php echo $chartArr['choose_title']?></h2>
+												</div>
+												<?php
+												}?>
+											</div>
+										</div>
+										
+										<!-- Radio -->
+
+									</div>
+
+									<!--Footer-->
+									<div class="modal-footer justify-content-center">
+										<a type="button" name="close" class="btn btn-outline-primary waves-effect" data-dismiss="modal">Cancel</a>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<!-- Modal: form khảo sát đã đóng -->
 					<!--end chọn lựa chọn-->
 				<?php
 					$i++;

@@ -113,7 +113,7 @@ include "database/connect.php";
 							?>
 							<ul class="dropdown-menu dropdown-menu-right" style="left=-43px; min-width:205px">
 								<li class="ml-3">
-									<i class="far fa-user mr-1"></i> <?php echo $row['name'] . " ( " . $row['user_id'] . " )";  ?>
+									<i class="far fa-user mr-1"></i> <?php echo $row['name'] ;  ?>
 									<br>
 									<i class="fas fa-graduation-cap"></i> Vai trò : <?php echo $row['role_name']; ?>
 
@@ -132,7 +132,7 @@ include "database/connect.php";
 									echo "
 									<li class='ml-3'>
 									<i class='fas fa-history mr-1'></i> 
-													<a href='teacher/'>Tư cách giao vien</a>
+													<a href='teacher/'>Tư cách giáo viên</a>
 									</li>
 									";
 								}

@@ -41,7 +41,7 @@
 							</h2>
 							<h6 class="d-block mb-0">
 								<small>
-									Noi trao doi cua moi nguoi
+									Nơi trao đổi của mọi người
 								</small>
 							</h6>
 						</a>

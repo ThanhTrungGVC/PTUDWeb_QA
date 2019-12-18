@@ -69,7 +69,7 @@
 							?>
 							<ul class="dropdown-menu dropdown-menu-right" style="left=-43px; min-width:205px">
 								<li class="ml-3">
-								<i class="far fa-user mr-1"></i> <?php echo $row['name'] . " ( " . $row['user_id'] . " )";  ?>
+								<i class="far fa-user mr-1"></i> <?php echo $row['name'] ;  ?>
 									<br>
 									<i class="fas fa-graduation-cap"></i> Vai trò : <?php echo $row['role_name']; ?>
 
@@ -154,39 +154,6 @@
 
 				</nav>
 
-				<!-- <div class="modal" id="taophienkhaosat">
-			         <div class="modal-dialog">
-			            <div class="modal-content">
-			               <div class="modal-header" style="background-color:#07eaea">
-			                  <h4 class="modal-title" style="text-align:center;">PHIÊN KHẢO SÁT</h4>
-			                  <button class="close" data-dismiss="modal">&times;</button>
-			               </div>
-			       
-			               <div class="modal-body">
-			               	  <h3>Câu 1 : </h3>
-			                  <label>Nhập nội dung :</label>
-			                  <input type="text" class="form-control">
-			                  <br>
-			                  <div class="form-inline">
-			                  	  <input type="checkbox"> &nbsp&nbsp&nbsp&nbsp
-				                  <input type="text" class="form-control" placeholder="Lựa chọn 1" size="30">
-			                  </div>
-			                  <br>
-			                  <div class="form-inline">
-				                  <input type="checkbox"> &nbsp&nbsp&nbsp&nbsp
-				                  <input type="text" class="form-control" placeholder="Lựa chọn 2" size="30">
-			                  </div>
-			                  <br>
-			                  <input type="text" class="form-control" placeholder="Khác...">
-			               </div>
-			              
-			               <div class="modal-footer">
-			                  <button type="button" class="btn btn-info">Thêm Câu</button>
-			                  <button type="button" class="btn btn-success">Xác Nhận</button>
-			               </div>
-			            </div>
-			         </div>
-      		    </div> -->
 				<div class="modal" id="taophienhoidap">
 			         <div class="modal-dialog">
 			            <div class="modal-content">
@@ -197,16 +164,19 @@
 			       			<form action="" method="POST">
 								<div class="modal-body">
 									<label class="m-0">TIÊU ĐỀ:</label>
-									<input name="title_in" type="text" class="form-control mb-2">
+									<input name="title_in" type="text" class="form-control mb-2" required>
 									<label class="m-0">MÔ TẢ:</label>
-									<textarea name="describe_in" class="form-control mb-3" rows="5" id="comment"></textarea>
+									<textarea name="describe_in" class="form-control mb-3" rows="5" id="comment" required></textarea></textarea>
 									<label class="m-0"> Thời gian bắt đầu: </label> 
 									<div class="mb-2">
-										<input name="time_start_in" type="datetime-local"> <br>
+										<input name="time_start_in" type="datetime-local" value="<?php date_default_timezone_set('Asia/Ho_Chi_Minh');
+										$timestamp = date('Y-m-d H:i');$timestamp = str_replace(' ', 'T', $timestamp); echo $timestamp;?>" min="<?php date_default_timezone_set('Asia/Ho_Chi_Minh');
+										$timestamp = date('Y-m-d H:i');$timestamp = str_replace(' ', 'T', $timestamp); echo $timestamp;?>"> <br>
 									</div>
 									<label class="m-0"> Thời gian kết thúc: </label>
 									<div class="mb-2">
-										<input name="time_end_in" type="datetime-local"> <br>
+										<input name="time_end_in" type="datetime-local" min="<?php date_default_timezone_set('Asia/Ho_Chi_Minh');
+										$timestamp = date('Y-m-d H:i');$timestamp = str_replace(' ', 'T', $timestamp); echo $timestamp;?>" required> <br>
 									</div>
 									<label class="m-0" class="m-0">Mật khẩu: </label>
 									<div class="mb-2">

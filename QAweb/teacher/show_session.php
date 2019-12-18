@@ -118,7 +118,7 @@ while ($row = $result->fetch_assoc()) {
 						<td> " . $row['ss_pass'] . " </td>
 						<td style='text-align: center;'> " . $row['ss_status'] . " </td>
 						<td style='text-align: center;'><a href='session_detail.php?ss_id=" . $row['ss_id'] . "'>Chi tiết</a></td>
-						<td style='text-align: center;'><a href=''>Dong</a></td>
+						<td style='text-align: center;'><a href='/QAweb/close.php?ss_id=" . $row['ss_id'] . "'>Đóng</a></td>
 					</tr>
 				";
 		$i++;

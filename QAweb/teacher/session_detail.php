@@ -134,7 +134,7 @@
 			</div>
 		</div>
 		<!-- Thông tin của 1 phiên -->
-		<div class="winter-neva-gradient mt-4">
+		<div class="winter-neva-gradient mt-2">
 			<div class="pl-3 pt-2">
 				<h2>Thông tin phiên: <strong><?php echo $row['ss_title']; ?></strong></h2>
 			</div>
@@ -162,11 +162,8 @@
 						<b>Số lượng câu hỏi: </b> <?php echo $row['num_qs']; ?>
 					</h5>
 					<h5>
-						<b>Số lượng khảo sát: </b> <?php echo 0; ?>
+						<b>Số lượng khảo sát: </b> <?php echo $row['num_sur']; ?>
 					</h5>
-					<div>
-
-					</div>
 				</div>
 				<div class="col-sm-4">
 					<div>
@@ -195,7 +192,7 @@
 						</div>
 						<div class="input-group-btn mt-2 d-inline">
 							<a href='delete.php?ss_id=<?= $row['ss_id'] ?>'>
-								<button class="btn btn-primary aqua-gradient btn-sm m-0" type="submit" role="button">Xóa phiên</button>
+								<button class="btn btn-primary aqua-gradient btn-sm m-0" type="submit" role="button" onclick="return confirm('Bạn chắc chắn muốn xóa phiên?');">Xóa phiên</button>
 							</a>
 						</div>
 					</div>
@@ -300,7 +297,7 @@
 				while ($row_q = $result_q->fetch_assoc()) {
 					?>
 					<div class="container-fluid question">
-						<div class="winter-neva-gradient pt-2">
+						<div class="winter-neva-gradient py-2">
 							<!-- Phần câu hỏi -->
 							<h5 class="m-3 pt-3 qs_i">
 								<b <?php if ($row_q['role_id'] == 2) echo "style='color:#FFBF00;'"; ?>>Câu hỏi <?php echo $i . ": " . $row_q['content']; ?></b>

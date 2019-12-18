@@ -125,7 +125,8 @@ CREATE TABLE IF NOT EXISTS `roles` (
 INSERT INTO `roles` (`role_id`, `role_name`, `note`) VALUES
 (1, 'Admin', ''),
 (2, 'Giáo viên', ''),
-(3, 'Sinh viên', '');
+(3, 'Sinh viên', ''),
+(4, 'Ẩn danh', '');
 
 -- --------------------------------------------------------
 
@@ -239,7 +240,7 @@ INSERT INTO `users` (`user_id`, `role_id`, `user_names`, `user_pass`, `name`, `c
 (1, 1, 'admin', 'admin', 'Quản trị viên', '2019-11-09 00:00:00', 'action'),
 (3, 2, 'gv1', '1234', 'Nguyễn Thành Trung', '2019-11-09 00:00:00', 'action'),
 (5, 2, 'gv2', '1234', 'Nguyễn Trung Kiên', '2019-11-09 00:00:00', 'action'),
-(6, 3, '', '', 'Người dùng ẩn danh', '2019-11-09 00:00:00', 'action'),
+(6, 4, '', '', 'Người dùng ẩn danh', '2019-11-09 00:00:00', 'action'),
 (7, 3, 'hs1', '1234', 'Nguyễn Văn Thành', '2019-11-09 00:00:00', 'action'),
 (8, 3, 'hs2', '1234', 'Nguyễn Văn Trung', '2019-11-09 00:00:00', 'action');
 

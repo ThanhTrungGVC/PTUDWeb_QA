@@ -47,7 +47,7 @@ include "database/connect.php";
 								</h2>
 								<h6 class="d-block mb-0">
 									<small>
-										Noi trao doi cua moi nguoi
+										Nơi trao đổi của mọi người
 									</small>
 								</h6>
 							</a>
@@ -60,25 +60,25 @@ include "database/connect.php";
 						<div class="dropdown">
 							<?php
 							if (!isset($_SESSION['us_id'])) {
-								echo "<a class='nav-link' href='login.php' > Dang Nhap </a>";
+								echo "<a class='nav-link deep-blue-gradient hover_color' href='login.php' style='color: #0b52d4;'> Đăng nhập </a>";
 							} else {
 								$id = $_SESSION['us_id'];
-								$sql = "SELECT u.name, u.user_id, r.role_name, u.role_id FROM users u INNER JOIN roles r ON r.role_id = u.role_id WHERE u.user_id = '$id'";
-								$result = $conn->query($sql);
-								$row = $result->fetch_assoc();
+								$sql1 = "SELECT u.name, u.user_id, r.role_name, u.role_id FROM users u INNER JOIN roles r ON r.role_id = u.role_id WHERE u.user_id = '$id'";
+								$result1 = $conn->query($sql1);
+								$row1 = $result1->fetch_assoc();
 								echo "
 								<i class='fas fa-user'></i>
 								<a class='dropdown-toggle' id='dropdownMenuButton' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
-								" . $row['name'] . "
+								" . $row1['name'] . "
 								</a>
 								";
 							}
 							?>
 							<ul class="dropdown-menu dropdown-menu-right" style="left=-43px; min-width:205px">
 								<li class="ml-3">
-									<i class="far fa-user mr-1"></i> <?php echo $row['name'] . " ( " . $row['user_id'] . " )";  ?>
+									<i class="far fa-user mr-1"></i> <?php echo $row1['name'];  ?>
 									<br>
-									<i class="fas fa-graduation-cap"></i> Vai trò : <?php echo $row['role_name']; ?>
+									<i class="fas fa-graduation-cap"></i> Vai trò : <?php echo $row1['role_name']; ?>
 
 								</li>
 
@@ -117,7 +117,7 @@ include "database/connect.php";
 	if ($_GET['ss_id']) {
 		$id_session = $_GET['ss_id'];
 
-		$sql = "SELECT s.ss_id,u.user_id, s.ss_title, s.ss_describe, u.name, s.create_date, s.create_date, s.time_start, s.time_end, s.ss_pass, s.ss_status,
+		$sql = "SELECT s.ss_id,u.role_id, u.user_id, s.ss_title, s.ss_describe, u.name, s.create_date, s.create_date, s.time_start, s.time_end, s.ss_pass, s.ss_status,
 				(SELECT COUNT(*) FROM questions q WHERE q.ss_id = s.ss_id) AS 'num_qs'
                 FROM sessions s INNER JOIN users u ON s.user_id = u.user_id WHERE s.ss_id = '$id_session'";
 
@@ -246,34 +246,34 @@ include "database/connect.php";
 								?>
 						</div>
 						<div id="mySession<?php echo $row_q['question_id']?>" class="modal fade" tabindex="-6" role="dialog">
-											<div class="modal-dialog modal-lg">
-												<!-- Modal content-->
-												<div class="modal-content aqua-gradient">
-													<div class="modal-body">
-														<div class="row">
-															<div class="container">
-																<form method="post" action="/QAweb/edit_session.php">
-																	<div>
-																		<div class="modal-header p-0 p-1">
-																		<h5>Sửa nội dung:</h5>
-																		<button type="button" class="close" data-dismiss="modal">&times;</button>
-																		</div>
-																		<div class="input-group">
-																			<input type="text" class="form-control" name="question_content" value="<?php echo $row_q['content']; ?>" required>
-																			<input type="hidden" class="form-control" name="question_id" value="<?php echo $row_q['question_id']; ?>" required>
-																			<input type="hidden" class="form-control" name="ss_id" value="<?php echo $_GET['ss_id']; ?>" required>
-																			<div class="input-group-append">
-																				<input type="submit" name="edit_question1" class="btn btn-primary m-0" style="padding: 9px;" value="Sửa" />
-																			</div>
-																		</div>
-																	</div>
-																</form>
+							<div class="modal-dialog modal-lg">
+								<!-- Modal content-->
+								<div class="modal-content aqua-gradient">
+									<div class="modal-body">
+										<div class="row">
+											<div class="container">
+												<form method="post" action="/QAweb/edit_session.php">
+													<div>
+														<div class="modal-header p-0 p-1">
+														<h5>Sửa nội dung:</h5>
+														<button type="button" class="close" data-dismiss="modal">&times;</button>
+														</div>
+														<div class="input-group">
+															<input type="text" class="form-control" name="question_content" value="<?php echo $row_q['content']; ?>" required>
+															<input type="hidden" class="form-control" name="question_id" value="<?php echo $row_q['question_id']; ?>" required>
+															<input type="hidden" class="form-control" name="ss_id" value="<?php echo $_GET['ss_id']; ?>" required>
+															<div class="input-group-append">
+																<input type="submit" name="edit_question1" class="btn btn-primary m-0" style="padding: 9px;" value="Sửa" />
 															</div>
 														</div>
 													</div>
-												</div>
+												</form>
 											</div>
 										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 					<?php
 						$qs_ids = $row_q['question_id'];
@@ -345,17 +345,31 @@ include "database/connect.php";
 					<!-- Phần nhập câu trả lời-->
 					<?php
 						if ($row['ss_status'] == 'action') {
-							?>
-						<div class='col-md-11 float-right px-4 mb-3'>
-							<form action="add_comment.php?ss_id=<?php echo $_GET['ss_id'] ?>&qs_id=<?php echo $row_q['question_id'] ?>" method='POST'>
-								<div style="margin-right: 115px;">									
-									<input type='text' class='form-control' style='border-radius: 1rem;' name='comment' placeholder='Nhập câu trả lời'>
-								</div>
-							</form>
-						</div>
-					<?php
-					}
-					?>
+							if (isset($_SESSION['us_id'])) {?>
+								<div class='col-md-11 float-right px-4 mb-3'>
+								<form action="add_comment.php?ss_id=<?php echo $_GET['ss_id'] ?>&qs_id=<?php echo $row_q['question_id'] ?>" method='POST'>
+									<div style="margin-right: 115px;">									
+										<input type='text' class='form-control' style='border-radius: 1rem;' name='comment' placeholder='Nhập câu trả lời'>
+									</div>
+								</form>
+							</div>
+							<?php
+							}else{?>
+							<div class='col-md-11 float-right px-4 mb-3'>
+								<form action="add_comment.php?ss_id=<?php echo $_GET['ss_id'] ?>&qs_id=<?php echo $row_q['question_id'] ?>" method='POST'>
+									<div style="margin-right: 115px;">
+										<div class="input-group mb-3">    
+											<input type='text' class='form-control' name='comment' style="border-radius: 18px 0px 0px 18px;" placeholder='Nhập câu trả lời' required>
+											<input type="text" class="form-control col-sm-2" name='name' placeholder="Nhập tên (Bắt buộc)" required>
+											<input type="submit" class="btn blue-gradient btn-sm px-3 m-auto" name='submit' style="border-radius: 0px 18px 18px 0px;font-size:14px;" value="Gửi">
+										</div>
+									</div>
+								</form>
+							</div>
+							<?php
+							}
+						}
+						?>
 				</div>
 			<?php
 				$i++;
